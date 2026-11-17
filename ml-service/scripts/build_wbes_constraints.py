@@ -12,12 +12,15 @@ OUT = ROOT / "data" / "processed" / "wbes_constraints.csv"
 REPORT = ROOT / "docs" / "wbes_constraints_report.txt"
 NAIROBI = 4   # a2 code for Nairobi
 MIN_N = 30    # cells smaller than this are flagged unreliable
+
+# Folders must exist before the report file is opened
+OUT.parent.mkdir(parents=True, exist_ok=True)
+REPORT.parent.mkdir(parents=True, exist_ok=True)
 sys.stdout = open(REPORT, "w", encoding="utf-8")
 
 df = pd.read_stata(RAW, convert_categoricals=False)
 with pd.io.stata.StataReader(RAW) as r:
     labels = r.variable_labels()
-    vals = r.value_labels()
 
 def sector_group(code):
     if pd.isna(code): return "Unknown"
@@ -84,9 +87,17 @@ cnt = pd.DataFrame({
 }).fillna(0).astype(int)
 print(cnt.to_string())
 
-print("\n=== m1a (biggest obstacle) value labels ===")
-m1a = vals.get("M1A") or vals.get("m1a")
-print({int(k): v for k, v in m1a.items()} if m1a else "no labels found")
+print("\n=== Code vs label check (m1a and the yes/no indicators) ===")
+CHECK = ["m1a", "e11", "e32", "e33", "j5", "j15"]
+for c in CHECK:
+    print(f"\n{c}  |  {labels.get(c, '')}")
+    try:
+        lab = pd.read_stata(RAW, convert_categoricals=True, columns=[c])
+        pair = pd.DataFrame({"code": df[c], "label": lab[c].astype(str)})
+        print(pair.value_counts(dropna=False).sort_index().to_string())
+    except Exception as e:
+        print("  Could not read labels:", e)
+        print("  Raw codes:", df[c].value_counts(dropna=False).sort_index().to_dict())
 
 print("\n=== Columns starting with e31 (market structure?) ===")
 for c in df.columns:

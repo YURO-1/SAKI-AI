@@ -10,8 +10,61 @@ Retail trade                     158       40
 Transport & storage               36       15
 Wholesale & motor trade          174       59
 
-=== m1a (biggest obstacle) value labels ===
-{1: 'Access to finance', 2: 'Access to land', 3: 'Business licensing and permits', 4: 'Corruption', 5: 'Courts', 6: 'Crime, theft and disorder', 7: 'Customs and trade regulations', 8: 'Electricity', 9: 'Inadequately educated workforce', 10: 'Labor regulations', 11: 'Political instability', 12: 'Practices of competitors in the informal sector', 13: 'Tax administration', 14: 'Tax rates', 15: 'Transport', -9: "Don't know (spontaneous)", -7: 'Does not apply'}
+=== Code vs label check (m1a and the yes/no indicators) ===
+
+m1a  |  Biggest Obstacle Affecting The Operation of This Establishment
+code  label                                          
+1     Access to finance                                  107
+2     Access to land                                       4
+3     Business licensing and permits                      29
+4     Corruption                                         114
+5     Courts                                               3
+6     Crime, theft and disorder                           21
+7     Customs and trade regulations                       32
+8     Electricity                                         42
+9     Inadequately educated workforce                      1
+10    Labor regulations                                    4
+11    Political instability                              112
+12    Practices of competitors in the informal sector    122
+13    Tax administration                                  77
+14    Tax rates                                          352
+15    Transport                                            4
+
+e11  |  Does This Establishment Compete Against Unregistered or Informal Firms?
+code  label                   
+-9    Don't know (spontaneous)      9
+ 1    Yes                         560
+ 2    No                          455
+
+e32  |  Change in competition in the last year?
+code  label                   
+-9    Don't know (spontaneous)      1
+ 1    Increased                   846
+ 2    Decreased                    29
+ 3    Stayed the same             148
+
+e33  |  Establishment can increase prices more than competitors without losing customers
+code  label                   
+-9    Don't know (spontaneous)      1
+-7    Prices are regulated         10
+-6    Prices set by HQ              1
+ 1    Yes                         239
+ 2    No                          773
+
+j5  |  In Any of These Inspections Was A Gift/Informal Payment Requested ?
+code  label                
+-8.0  Refusal (spontaneous)      1
+ 1.0  Yes                      159
+ 2.0  No                       491
+ NaN  NaN                      373
+
+j15  |  When You Applied For Operating License Was An Informal Gift/Payment Requested?
+code  label                   
+-9.0  Don't know (spontaneous)      6
+-8.0  Refusal (spontaneous)         2
+ 1.0  Yes                         209
+ 2.0  No                          664
+ NaN  NaN                         143
 
 === Columns starting with e31 (market structure?) ===
 e312 | Which Best Descibes Establishment's Main Market | {1.0: 15, 2.0: 153, 3.0: 801, nan: 55}
