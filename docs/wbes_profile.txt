@@ -1,0 +1,393 @@
+=== Region codes vs labels ===
+
+a2:
+a2  Central  Coast  East and Northeastern  Nairobi  Nyanza and Western  Rift Valley
+a2                                                                                 
+1       153      0                      0        0                   0            0
+2         0    145                      0        0                   0            0
+3         0      0                    142        0                   0            0
+4         0      0                      0      275                   0            0
+5         0      0                      0        0                 146            0
+6         0      0                      0        0                   0          163
+
+a3a:
+a3a  Central  Coast  East and Northeastern  Nairobi  Nyanza and Western  Rift Valley
+a3a                                                                                 
+1        157      0                      0        0                   0            0
+2          0    144                      0        0                   0            0
+3          0      0                    136        0                   0            0
+4          0      0                      0      281                   0            0
+5          0      0                      0        0                 144            0
+6          0      0                      0        0                   0          162
+
+a6a:
+a6a  Small  Medium  Large
+a6a                      
+1      499       0      0
+2        0     333      0
+3        0       0    192
+
+=== Value label sets with 12 or fewer entries ===
+A2: {np.int32(1): 'Central', np.int32(2): 'Coast', np.int32(3): 'East and Northeastern', np.int32(4): 'Nairobi', np.int32(5): 'Nyanza and Western', np.int32(6): 'Rift Valley'}
+A3A: {np.int32(1): 'Central', np.int32(2): 'Coast', np.int32(3): 'East and Northeastern', np.int32(4): 'Nairobi', np.int32(5): 'Nyanza and Western', np.int32(6): 'Rift Valley'}
+A4A: {np.int32(1): 'Food', np.int32(2): 'Chemicals and Chemical Products', np.int32(3): 'Other Manufacturing', np.int32(4): 'Construction', np.int32(5): 'Retail', np.int32(6): 'Hotels and Restaurants', np.int32(7): 'Other Services'}
+StratificationRegionCode: {np.int32(1): 'Central', np.int32(2): 'Coast', np.int32(3): 'East and Northeastern', np.int32(4): 'Nairobi', np.int32(5): 'Nyanza and Western', np.int32(6): 'Rift Valley'}
+StratificationSectorCode: {np.int32(1): 'Food', np.int32(2): 'Chemicals and Chemical Products', np.int32(3): 'Other Manufacturing', np.int32(4): 'Construction', np.int32(5): 'Retail', np.int32(6): 'Hotels and Restaurants', np.int32(7): 'Other Services'}
+A1A: {np.int32(1): 'English'}
+StratificationSizeCode: {np.int32(1): 'Small (5-19)', np.int32(2): 'Medium (20-99)', np.int32(3): 'Large (100 or more)'}
+StratificationPanelCode: {np.int32(0): 'Fresh', np.int32(1): 'Panel'}
+A6A: {np.int32(1): 'Small', np.int32(2): 'Medium', np.int32(3): 'Large'}
+A1C: {np.int32(1): 'Establishment', np.int32(2): 'Firm'}
+A0: {np.int32(1): 'Manufacturing', np.int32(2): 'Retail services', np.int32(3): 'Other services'}
+A7: {np.int32(1): 'Yes', np.int32(2): 'No'}
+PANEL: {np.int32(0): 'Fresh', np.int32(1): 'Panel'}
+A7A: {np.int32(-9): "Don't know (spontaneous)"}
+A7B: {np.int32(1): 'Yes', np.int32(2): 'No'}
+A11: {np.int32(1): 'Yes', np.int32(2): 'No'}
+A7C: {np.int32(1): 'Yes', np.int32(2): 'No'}
+A9: {np.int32(1): 'Yes', np.int32(2): 'No'}
+B1: {np.int32(1): 'Shareholding company with shares traded on the stock market', np.int32(2): 'Shareholding company with non-traded shares or shares traded privately', np.int32(3): 'Sole proprietorship', np.int32(4): 'Partnership', np.int32(5): 'Limited partnership', np.int32(6): 'Other', np.int32(-9): "Don't know (spontaneous)"}
+B3A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+B2A: {np.int32(100): 'Fully domestically owned (private)', np.int32(-9): "Don't know (spontaneous)"}
+B2B: {np.int32(100): 'Fully foreign owned (private)', np.int32(-9): "Don't know (spontaneous)"}
+B2C: {np.int32(100): 'Fully government or state owned', np.int32(-9): "Don't know (spontaneous)"}
+B2D: {np.int32(-9): "Don't know (spontaneous)"}
+B4: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+B4A: {np.int32(-9): "Don't know (spontaneous)"}
+B5: {np.int32(-9): "Don't know (spontaneous)"}
+B6: {np.int32(-9): "Don't know (spontaneous)"}
+B6B: {np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'Never regiestered (spontaneous)'}
+B7: {np.int32(1): 'One year or less', np.int32(-9): "Don't know (spontaneous)"}
+B7A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+B8: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+C3: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C4: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+C5: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+C31: {np.int32(-9): "Don't know (spontaneous)"}
+C6: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C7: {np.int32(-9): "Don't know (spontaneous)"}
+C8A: {np.int32(-9): "Don't know (spontaneous)"}
+C8B: {np.int32(1): 'One minute or less', np.int32(-9): "Don't know (spontaneous)"}
+C9A: {np.int32(0): 'No Losses', np.int32(-9): "Don't know (spontaneous)"}
+C9B: {np.int32(0): 'No Losses', np.int32(-9): "Don't know (spontaneous)"}
+C10: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C11: {np.int32(-9): "Don't know (spontaneous)"}
+C43: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C44: {np.int32(-9): "Don't know (spontaneous)"}
+C12: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C13: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+C14: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+C33: {np.int32(-9): "Don't know (spontaneous)"}
+C45: {np.int32(1): 'It is suitable for all operational needs', np.int32(2): 'It is suitable for only some operational needs', np.int32(3): ' It is not suitable for any operational needs', np.int32(-6): 'PIPED WATER NOT USED FOR OPERATIONS', np.int32(-7): 'ESTABLISHMENT DOES NOT HAVE PIPED WATER FROM A UTILITY PROVIDER', np.int32(-9): "Don't know (spontaneous)"}
+C152: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C162: {np.int32(-9): "Don't know (spontaneous)"}
+C172: {np.int32(1): 'One hour or less', np.int32(-9): "Don't know (spontaneous)"}
+C22B: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C36: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+C37: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+C39: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-7): 'The establishment does not have an internet connection', np.int32(-9): "Don't know (spontaneous)"}
+C42: {np.int32(1): 'Unable to change provider', np.int32(2): 'With some difficulty', np.int32(3): 'With little difficulty', np.int32(4): 'With no difficulty at all', np.int32(-7): 'There is only one available internet provider', np.int32(-9): "Don't know (spontaneous)"}
+D1A1A: {np.int32(1): 'Manufacturing of ', np.int32(11): 'Printing and reproduction of recorded media', np.int32(2): 'Retail trade of ', np.int32(3): 'Wholesale trade of ', np.int32(4): 'Construction of', np.int32(51): 'Hotel', np.int32(52): 'Restaurant', np.int32(61): 'Repair of motor vehicles, computers, or household goods', np.int32(12): 'Repair of manufacturing machinery or equipment', np.int32(62): 'Other services '}
+D1A3: {np.int32(-9): "Don't know (spontaneous)"}
+D2: {np.int32(-9): "Don't know (spontaneous)"}
+N3: {np.int32(-7): 'Establishment was not in business in Fiscal Year', np.int32(-9): "Don't know (spontaneous)"}
+F1: {np.int32(-9): "Don't know (spontaneous)"}
+D3A: {np.int32(-9): "Don't know (spontaneous)"}
+D3B: {np.int32(-9): "Don't know (spontaneous)"}
+D3C: {np.int32(-9): "Don't know (spontaneous)"}
+D42: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+D43A: {np.int32(0): 'Less than one day', np.int32(-9): "Don't know (spontaneous)"}
+D43B: {np.int32(-9): "Don't know (spontaneous)"}
+D4A: {np.int32(0): 'Less than one day', np.int32(-9): "Don't know (spontaneous)"}
+D4B: {np.int32(-9): "Don't know (spontaneous)"}
+D342: {np.int32(-9): "Don't know (spontaneous)"}
+D352: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+D8: {np.int32(-9): "Don't know (spontaneous)"}
+D12A: {np.int32(-9): "Don't know (spontaneous)"}
+D12B: {np.int32(-9): "Don't know (spontaneous)"}
+D13: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+D44: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+D45A: {np.int32(0): 'Less than one day', np.int32(-9): "Don't know (spontaneous)"}
+D45B: {np.int32(-9): "Don't know (spontaneous)"}
+D14A: {np.int32(0): 'Less than one day', np.int32(-7): 'Does not apply (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+D14B: {np.int32(-9): "Don't know (spontaneous)"}
+D412: {np.int32(-9): "Don't know (spontaneous)"}
+O1: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+O2: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+O3A2: {np.int32(1): 'Strongly disagree', np.int32(2): 'Tend to disagree', np.int32(3): 'Tend to agree', np.int32(4): 'Strongly agree', np.int32(-7): 'Does not apply (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+O3B2: {np.int32(1): 'Strongly disagree', np.int32(2): 'Tend to disagree', np.int32(3): 'Tend to agree', np.int32(4): 'Strongly agree', np.int32(-7): 'Does not apply (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+J31: {np.int32(1): 'Strongly disagree', np.int32(2): 'Tend to disagree', np.int32(3): 'Tend to agree', np.int32(4): 'Strongly agree', np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'Does not apply (spontaneous)'}
+R1: {np.int32(1): 'We fixed it but did not take further action', np.int32(2): 'We fixed it and took action to make sure it did not happen again', np.int32(3): 'We fixed it and took action to make sure that it did not happen again, and had a continuous improvement process to anticipate problems like these in advance', np.int32(4): 'No action was taken', np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'Does not apply (spontaneous)'}
+R2: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+R3: {np.int32(1): '1-2 production performance indicators', np.int32(2): '3-9 production performance indicators', np.int32(3): '10 or more production performance indicators', np.int32(-9): "Don't know (spontaneous)"}
+R4: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+R5: {np.int32(1): 'Main focus was on short-term (less than one year) production targets', np.int32(2): 'Main focus was on long-term (one year or more) production targets', np.int32(3): 'Combination of short term and long term production targets', np.int32(-9): "Don't know (spontaneous)"}
+R6: {np.int32(1): 'Possible to achieve without much effort', np.int32(2): 'Possible to achieve with some effort', np.int32(3): 'Possible to achieve with normal amount of effort', np.int32(4): 'Possible to achieve with more than normal effort', np.int32(5): 'Only possible to achieve with extraordinary effort', np.int32(6): 'Targets were not achieved', np.int32(-9): "Don't know (spontaneous)"}
+R7: {np.int32(1): 'Only senior managers', np.int32(2): 'Most managers and some production workers', np.int32(3): 'Most managers and most production workers', np.int32(4): 'All managers and most production workers', np.int32(-9): "Don't know (spontaneous)"}
+R8: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+R9: {np.int32(1): 'Their own performance', np.int32(2): "Their team's or shift performance", np.int32(3): 'The establishmentâ\x80\x99s performance ', np.int32(4): 'The firmâ\x80\x99s performance', np.int32(-9): "Don't know (spontaneous)"}
+R10: {np.int32(1): 'Promotions were based solely on performance and ability', np.int32(2): 'Promotions were based partly on performance and ability, and partly on other factors (for example, tenure or family connections)', np.int32(3): 'Promotions were based mainly on factors other than performance and ability (for example, tenure or family connections)', np.int32(4): 'Non-managers are normally not promoted', np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'Does not apply (spontaneous)'}
+R11: {np.int32(1): 'Within 6 months of identifying non-manager under-performance', np.int32(2): 'After 6 months of identifying non-manager under-performance', np.int32(3): 'Rarely or never', np.int32(-7): 'Does not apply (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+E1: {np.int32(1): 'Local or in some parts of the country', np.int32(2): 'National ', np.int32(3): 'International', np.int32(-9): "Don't know (spontaneous)"}
+E2B: {np.int32(-4): 'Too many to count', np.int32(-9): "Don't know (spontaneous)"}
+E312: {np.int32(1): 'The market is dominated by one firm', np.int32(2): 'The market is dominated by a few firms', np.int32(3): 'There is competition among many firms', np.int32(-9): "Don't know (spontaneous)"}
+E32: {np.int32(1): 'Increased', np.int32(2): 'Decreased', np.int32(3): 'Stayed the same', np.int32(-9): "Don't know (spontaneous)"}
+E33: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-7): 'Prices are regulated', np.int32(-6): 'Prices set by HQ', np.int32(-9): "Don't know (spontaneous)"}
+E6: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+E11: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+H1: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+H2: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+H5: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+H8: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+H9: {np.int32(-9): "Don't know (spontaneous)"}
+D1A6A: {np.int32(-9): "Don't know (spontaneous)"}
+D1A6B: {np.int32(-9): "Don't know (spontaneous)"}
+D1A6C: {np.int32(1): 'Square Feet', np.int32(2): 'Square Yards', np.int32(3): 'Square Meters', np.int32(4): 'Other (Specify)'}
+G5A: {np.int32(0): 'NO PHYSICAL SELLING AREA', np.int32(-9): "Don't know (spontaneous)"}
+G5B: {np.int32(1): 'Square Feet', np.int32(2): 'Square Yards', np.int32(3): 'Square Meters', np.int32(4): 'Other'}
+G2: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+G3: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+G4: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+G34: {np.int32(1): 'Strongly disagree', np.int32(2): 'Tend to disagree', np.int32(3): 'Tend to agree', np.int32(4): 'Strongly agree', np.int32(-7): 'Does not apply (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+GE3: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+GE3A: {np.int32(-9): "Don't know (spontaneous)"}
+GE7: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+GE8D: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K3A: {np.int32(-9): "Don't know (spontaneous)"}
+K3I: {np.int32(-9): "Don't know (spontaneous)"}
+K3J: {np.int32(-9): "Don't know (spontaneous)"}
+K3BC: {np.int32(-9): "Don't know (spontaneous)"}
+K3E: {np.int32(-9): "Don't know (spontaneous)"}
+K3F: {np.int32(-9): "Don't know (spontaneous)"}
+K3DGH: {np.int32(-9): "Don't know (spontaneous)"}
+K4: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+N5A: {np.int32(-9): "Don't know (spontaneous)"}
+N5B: {np.int32(-9): "Don't know (spontaneous)"}
+K5A: {np.int32(-9): "Don't know (spontaneous)"}
+K5A1: {np.int32(-9): "Don't know (spontaneous)"}
+K5I: {np.int32(-9): "Don't know (spontaneous)"}
+K5I1: {np.int32(-9): "Don't know (spontaneous)"}
+K5J: {np.int32(-9): "Don't know (spontaneous)"}
+K5J1: {np.int32(-9): "Don't know (spontaneous)"}
+K5BC: {np.int32(-9): "Don't know (spontaneous)"}
+K5BC1: {np.int32(-9): "Don't know (spontaneous)"}
+K5E: {np.int32(-9): "Don't know (spontaneous)"}
+K5E1: {np.int32(-9): "Don't know (spontaneous)"}
+K5F: {np.int32(-9): "Don't know (spontaneous)"}
+K5F1: {np.int32(-9): "Don't know (spontaneous)"}
+K5DGH: {np.int32(-9): "Don't know (spontaneous)"}
+K5DGH1: {np.int32(-9): "Don't know (spontaneous)"}
+K6: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K82B: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K82A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K9: {np.int32(1): 'Private commercial banks', np.int32(2): 'State-owned banks or government agency', np.int32(3): 'Non-bank financial institutions', np.int32(4): 'Other', np.int32(-9): "Don't know (spontaneous)"}
+K10: {np.int32(-9): "Don't know (spontaneous)"}
+K11: {np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+K13: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K14A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K14B: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K14C: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K14D: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K14E: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K15A: {np.int32(-9): "Don't know (spontaneous)"}
+K15D: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K162A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K162B: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K17: {np.int32(1): 'No need for a loan - establishment had sufficient capital', np.int32(2): 'Application procedures were complex', np.int32(3): 'Interest rates were not favorable', np.int32(4): 'Collateral requirements were too high', np.int32(5): 'Size of loan and maturity were insufficient', np.int32(6): 'Did not think it would be approved', np.int32(7): 'Other', np.int32(-9): "Don't know (spontaneous)"}
+K20A1: {np.int32(1): 'Application was approved in full', np.int32(2): 'Application was approved in part', np.int32(3): 'Application was rejected', np.int32(4): 'Application was withdrawn', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+K32: {np.int32(-9): "Don't know (spontaneous)"}
+K21: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+K33: {np.int32(-9): "Don't know (spontaneous)"}
+K342: {np.int32(1): 'Debit cards', np.int32(2): 'Credit cards', np.int32(3): 'Bank transfers, including through online and mobile banking', np.int32(4): 'Other (including e-money, e-wallet, and mobile money', np.int32(-9): "Don't know (spontaneous)"}
+K35: {np.int32(0): 'Payment received in less than a day', np.int32(-9): "Don't know (spontaneous)"}
+K36: {np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'Above 0 but below 0.5%', np.int32(-6): 'Costless (Zero)'}
+K38: {np.int32(-9): "Don't know (spontaneous)"}
+K392: {np.int32(1): 'Debit cards', np.int32(2): 'Credit cards', np.int32(3): ' Bank transfers, including through online and mobile banking', np.int32(4): 'Other (including e-money, e-wallet, and mobile money', np.int32(-9): "Don't know (spontaneous)"}
+K40: {np.int32(-9): "Don't know (spontaneous)", np.int32(-6): 'Costless (zero)', np.int32(-5): 'Above 0 but below 0.5%'}
+J2: {np.int32(0): 'No time spent', np.int32(-9): "Don't know (spontaneous)"}
+J3: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J4: {np.int32(-9): "Don't know (spontaneous)"}
+J5: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+J32: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J33: {np.int32(1): 'One week or less', np.int32(-5): 'Audit is ongoing', np.int32(-6): 'Audit completed but no report received', np.int32(-9): "Don't know (spontaneous)"}
+J35: {np.int32(1): 'One hour or less', np.int32(-9): "Don't know (spontaneous)"}
+J36: {np.int32(1): 'Yes, fully', np.int32(2): 'Yes, partially', np.int32(3): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J37: {np.int32(1): 'Yes, fully', np.int32(2): 'Yes, partially', np.int32(3): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J38: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)", np.int32(-6): 'No refund systems exists'}
+J39: {np.int32(1): 'One week or less', np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'Refund still outstanding'}
+J40: {np.int32(1): 'Refunds take too long to receive', np.int32(2): 'The application for a refund is too complicated', np.int32(3): 'The establishment did not need to request a refund', np.int32(4): 'Other', np.int32(-7): 'Not eligible', np.int32(-9): "Don't know (spontaneous)"}
+J6A: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J41: {np.int32(1): 'Very much difficult', np.int32(2): 'Moderately difficult', np.int32(3): 'Somewhat difficult', np.int32(4): 'Not difficult at all', np.int32(-9): "Don't know (spontaneous)"}
+J42: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J43: {np.int32(1): 'Less than one day', np.int32(-6): 'NO PAYMENT HAS YET BEEN RECEIVED', np.int32(-9): "Don't know (spontaneous)"}
+J7A: {np.int32(0): 'No payments or gifts are paid', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+J7B: {np.int32(0): 'No payments or gifts are paid', np.int32(-9): "Don't know (spontaneous)"}
+J10: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J11: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+J12: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+J13: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+J14: {np.int32(1): 'One day or less', np.int32(-5): 'Application denied', np.int32(-6): 'Still in process', np.int32(-9): "Don't know (spontaneous)"}
+J15: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-8): 'Refusal (spontaneous)', np.int32(-9): "Don't know (spontaneous)"}
+K30: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+G30A: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+J30C: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+J30F: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+H30: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+I30: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+D30B: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+C30A: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+L30B: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+L30A: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+J30E: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+E30: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+J30B: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+J30A: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+D30A: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+L1: {np.int32(-9): "Don't know (spontaneous)"}
+L2: {np.int32(-7): 'Establishment was not in business', np.int32(-9): "Don't know (spontaneous)"}
+L9B: {np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'RESPONDENT PREFERS TO PROVIDE THE NUMBER OF WORKERS'}
+L9B1: {np.int32(-9): "Don't know (spontaneous)"}
+L3A: {np.int32(-9): "Don't know (spontaneous)"}
+L3B: {np.int32(-9): "Don't know (spontaneous)"}
+L5A: {np.int32(-9): "Don't know (spontaneous)"}
+L5B: {np.int32(-9): "Don't know (spontaneous)"}
+L5: {np.int32(-9): "Don't know (spontaneous)"}
+L4A1: {np.int32(-9): "Don't know (spontaneous)"}
+L4A2: {np.int32(-9): "Don't know (spontaneous)"}
+L4B: {np.int32(-9): "Don't know (spontaneous)"}
+L10: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+L11A1: {np.int32(0): 'No employees trained', np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'RESPONDENT PREFERS TO PROVIDE THE PERCENTAGE OF WORKERS'}
+L11A: {np.int32(0): 'No employees trained', np.int32(-9): "Don't know (spontaneous)"}
+L11B1: {np.int32(0): 'No employees trained', np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'Respondent prefers to provide percentage of workers'}
+L11B: {np.int32(0): 'No employees trained', np.int32(-9): "Don't know (spontaneous)"}
+L12A1: {np.int32(0): 'No women employees trained', np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'Respondent prefers to provide percentage of workers'}
+L12A: {np.int32(0): 'No women employees trained', np.int32(-9): "Don't know (spontaneous)"}
+L34: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+L35: {np.int32(0): 'Dismissals were immediate', np.int32(-9): "Don't know (spontaneous)", np.int32(-6): 'Still in progress'}
+L36: {np.int32(0): 'No severance was paid', np.int32(-9): "Don't know (spontaneous)"}
+L1A: {np.int32(-9): "Don't know (spontaneous)", np.int32(0): 'No part-time workers'}
+L6: {np.int32(0): 'No full-time seasonal or temporary workers', np.int32(-9): "Don't know (spontaneous)"}
+L6A: {np.int32(-9): "Don't know (spontaneous)"}
+L8: {np.int32(1): 'One month or less', np.int32(-9): "Don't know (spontaneous)"}
+L37: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+L38A: {np.int32(0): 'Less than one month', np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'No dispute has been resolved'}
+L38B: {np.int32(-9): "Don't know (spontaneous)"}
+L40: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)"}
+L41: {np.int32(1): 'Yes', np.int32(2): 'No', np.int32(-9): "Don't know (spontaneous)", np.int32(-5): 'No inspection has been concluded'}
+L30D: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+L30C: {np.int32(0): 'No obstacle', np.int32(1): 'Minor obstacle', np.int32(2): 'Moderate obstacle', np.int32(3): 'Major obstacle', np.int32(4): 'Very severe obstacle', np.int32(-7): 'Does not apply', np.int32(-9): "Don't know (spontaneous)"}
+C32: {np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'No elecricity from a utiilty (spontaneous)'}
+C32B: {np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'No elecricity from a utiilty (spontaneous)'}
+C34: {np.int32(-9): "Don't know (spontaneous)", np.int32(-7): 'No water from a utiilty (spontaneous)'}
+C34B: {np.int32(1): 'Cubic meters', np.int32(2): 'Gallons', np.int32(3): 'Cubic feet', np.int32(4): 'Other', np.int32(5): 'Liters', np.int32(-9): "Don't know (spontaneous)"}
+C34C: {np.int32(-9): "Don't know (spontaneous)"}
+N2A: {np.int32(-9): "Don't know (spontaneous)"}
+N2A2: {np.int32(-9): "Don't know (spontaneous)"}
+N2E: {np.int32(-9): "Don't know (spontaneous)"}
+N2I: {np.int32(-9): "Don't know (spontaneous)"}
+N7A: {np.int32(-9): "Don't know (spontaneous)"}
+N11: {np.int32(-9): "Don't know (spontaneous)", np.int32(-8): 'Refusal (spontaneous)'}
+A16: {np.int32(1): 'Truthful', np.int32(2): 'Somewhat truthful', np.int32(3): 'Not truthful'}
+A17: {np.int32(1): 'Are taken directly from establishment records', np.int32(2): 'Are estimates computed with some precision', np.int32(3): 'Are arbitrary and unreliable numbers', np.int32(4): 'Are in some case taken from books and in some case estimates'}
+A18: {np.int32(1): 'One visit in face-to-face interview with one person', np.int32(2): 'One visit in face-to-face interview with different managers/staff', np.int32(3): 'Several visits'}
+A1D: {np.int32(1): 'Face to face only', np.int32(2): 'Video conference only', np.int32(3): 'Mainly face to face, with parts done by video conference or over the phone', np.int32(4): 'Mainly video conference, with parts done face to face or over the phone'}
+A3B: {np.int32(1): 'Yes', np.int32(2): 'No'}
+A3C: {np.int32(1): 'Yes', np.int32(2): 'No'}
+A3: {np.int32(2): 'City with population over 1 million', np.int32(3): 'Over 250.000 to 1 million', np.int32(4): '50.000 to 250.000', np.int32(5): 'Less than 50.000'}
+
+=== Raw answer counts, obstacle questions ===
+k30: {0: 154, 1: 253, 2: 257, 3: 209, 4: 151}
+g30a: {-9: 1, -7: 9, 0: 396, 1: 333, 2: 129, 3: 107, 4: 49}
+j30c: {-7: 1, 0: 279, 1: 299, 2: 225, 3: 151, 4: 69}
+j30f: {-9: 1, -7: 1, 0: 150, 1: 260, 2: 211, 3: 225, 4: 176}
+h30: {-7: 3, 0: 403, 1: 353, 2: 136, 3: 79, 4: 50}
+i30: {-9: 1, 0: 209, 1: 409, 2: 207, 3: 118, 4: 80}
+d30b: {-9: 3, -7: 13, 0: 304, 1: 267, 2: 215, 3: 135, 4: 87}
+c30a: {0: 198, 1: 385, 2: 204, 3: 158, 4: 79}
+l30b: {0: 433, 1: 361, 2: 127, 3: 63, 4: 40}
+l30a: {-9: 2, 0: 271, 1: 407, 2: 190, 3: 90, 4: 64}
+j30e: {-9: 1, -7: 1, 0: 103, 1: 291, 2: 206, 3: 243, 4: 179}
+e30: {0: 140, 1: 237, 2: 214, 3: 244, 4: 189}
+j30b: {-9: 1, 0: 175, 1: 212, 2: 237, 3: 242, 4: 157}
+j30a: {-9: 1, -7: 1, 0: 41, 1: 97, 2: 183, 3: 314, 4: 387}
+d30a: {-7: 1, 0: 320, 1: 359, 2: 186, 3: 111, 4: 47}
+l30d: {-7: 3, 0: 317, 1: 426, 2: 157, 3: 95, 4: 26}
+l30c: {-9: 1, -7: 2, 0: 272, 1: 360, 2: 238, 3: 112, 4: 39}
+m1a: {1: 107, 2: 4, 3: 29, 4: 114, 5: 3, 6: 21, 7: 32, 8: 42, 9: 1, 10: 4, 11: 112, 12: 122, 13: 77, 14: 352, 15: 4}
+
+=== Raw answer counts, competition / inspections / payments ===
+e11: {-9: 9, 1: 560, 2: 455}
+e2b: {-9.0: 6, -4.0: 779, 0.0: 3, 1.0: 3, 2.0: 6, 3.0: 11, 4.0: 20, 5.0: 35, 6.0: 15, 7.0: 11, 8.0: 11, 9.0: 4, 10.0: 30, 11.0: 1, 12.0: 2, 13.0: 2, 14.0: 2, 15.0: 8, 17.0: 1, 20.0: 6, 22.0: 1, 25.0: 2, 26.0: 1, 28.0: 1, 30.0: 2, 35.0: 1, 40.0: 1, 100.0: 2, 150.0: 1, 500.0: 1, nan: 55}
+e32: {-9: 1, 1: 846, 2: 29, 3: 148}
+e33: {-9: 1, -7: 10, -6: 1, 1: 239, 2: 773}
+j3: {1: 651, 2: 373}
+j5: {-8.0: 1, 1.0: 159, 2.0: 491, nan: 373}
+j15: {-9.0: 6, -8.0: 2, 1.0: 209, 2.0: 664, nan: 143}
+c5: {-8.0: 1, 1.0: 18, 2.0: 39, nan: 966}
+g4: {-9.0: 2, -8.0: 1, 1.0: 77, 2.0: 147, nan: 797}
+
+j7a (% of sales paid in informal payments):
+count    1006.000000
+mean        2.439364
+std         8.067859
+min        -9.000000
+25%         0.000000
+50%         0.000000
+75%         2.000000
+max       100.000000
+
+=== ISIC Rev 4 divisions (first two digits of d1a2_v4) ===
+d1a2_v4
+10    131
+11     12
+13      4
+14     19
+15      3
+16      7
+17      7
+18      4
+19      5
+20     79
+21      3
+22     23
+23     18
+24      5
+25     13
+28      3
+29      5
+31     13
+32      4
+33      8
+41     53
+42     41
+43     21
+45     62
+46    112
+47    158
+49     20
+50      3
+51      1
+52     10
+53      2
+55     82
+56     57
+58      1
+61      5
+62      8
+69      2
+70      3
+71      5
+73      1
+74      1
+79      7
+95      3
+
+=== wmedian ===
+count    1024.000000
+mean       12.417109
+std        16.567520
+min         1.000000
+25%         2.021006
+50%         5.486654
+75%        14.520873
+max       101.079788
