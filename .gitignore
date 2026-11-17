@@ -27,6 +27,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/survey/*
 !data/survey/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
 
 # OS / editor
 .DS_Store
