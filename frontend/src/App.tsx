@@ -55,7 +55,6 @@ function App() {
   const [activeIdeaId, setActiveIdeaId] = useState<string | null>(null)
   const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
   const [modelError, setModelError] = useState('')
-  const [modelLoading, setModelLoading] = useState(false)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -78,25 +77,15 @@ function App() {
   }, [token])
 
   useEffect(() => {
-    if (!token || role !== 'ADMIN') {
-      setModelMetadata(null)
-      setModelError('')
-      setModelLoading(false)
-      return
-    }
+    if (!token || role !== 'ADMIN') return
 
     let cancelled = false
-    setModelLoading(true)
-    setModelError('')
     api.currentModel(token)
       .then((metadata) => {
         if (!cancelled) setModelMetadata(metadata)
       })
       .catch((cause: unknown) => {
         if (!cancelled) setModelError(messageFor(cause))
-      })
-      .finally(() => {
-        if (!cancelled) setModelLoading(false)
       })
     return () => {
       cancelled = true
@@ -117,6 +106,8 @@ function App() {
       setEmail(email.trim().toLowerCase())
       setToken(response.accessToken)
       setRole(response.role)
+      setModelMetadata(null)
+      setModelError('')
       setPassword('')
     } catch (cause) {
       setError(messageFor(cause))
@@ -131,6 +122,8 @@ function App() {
     sessionStorage.removeItem('saki-role')
     setToken(null)
     setRole('USER')
+    setModelMetadata(null)
+    setModelError('')
     setEmail('')
     setIdeas([])
     setActiveAnalysis(null)
@@ -414,7 +407,7 @@ function App() {
                 </div>
                 {modelMetadata && <span className="w-fit rounded-full bg-[#eaf2df] px-3 py-1.5 text-xs font-semibold text-[#4f703e]">Version {modelMetadata.version}</span>}
               </div>
-              {modelLoading && <p className="mt-5 text-sm text-slate-500">Loading model metadata…</p>}
+              {!modelMetadata && !modelError && <p className="mt-5 text-sm text-slate-500">Loading model metadata…</p>}
               {modelError && <p role="alert" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{modelError}</p>}
               {modelMetadata && (
                 <>
