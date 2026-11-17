@@ -1,0 +1,44 @@
+Nairobi rows: 1,546
+Revenue negatives (treated as missing special codes): 146
+Revenue zeros (kept in file, excluded from modelling): 18
+Revenue already missing: 91
+Capital negatives (-98/-99 codes, treated as missing): 464
+Capital zeros: 12
+
+Rows with a valid revenue tier: 1,291
+Rows flagged model_eligible: 973 of 1,546
+
+Revenue tier counts (eligible rows):
+revenue_tier
+Medium    400
+Low       343
+High      230
+
+Sector group counts (eligible rows):
+sector_group
+Retail trade                     385
+Business & financial services    131
+Education & health               106
+Personal services                 84
+Manufacturing                     76
+Food & accommodation              69
+Wholesale & motor trade           58
+Other                             39
+Transport & storage               25
+
+Premises group counts (eligible rows):
+premises_group
+Commercial premises          575
+Residential                  195
+Market stall / kiosk         129
+Open-air / mobile / other     43
+Industrial / jua kali         31
+
+Missing values in key columns (all Nairobi rows):
+monthly_revenue_ksh    237
+initial_capital_ksh    464
+start_year               0
+founding_employees       0
+registered               0
+
+Revenue by tier thresholds: Low < 15,000; Medium 15,000-99,999; High >= 100,000 (KSh/month)
