@@ -52,6 +52,7 @@ INDICATORS += [
     ("e11", "Competes with unregistered or informal firms", "competition", {1, 2}, {1}),
     ("e32", "Competition increased in the last year", "competition", {1, 2, 3}, {1}),
     ("e33", "Can raise prices without losing customers", "competition", {1, 2}, {1}),
+    ("e312", "Main market dominated by one or a few firms", "competition", {1, 2, 3}, {1, 2}),
     ("j5", "Gift/payment requested during an inspection (among firms inspected)", "bribery", {1, 2}, {1}),
     ("j15", "Gift/payment requested for an operating licence (among firms that applied)", "bribery", {1, 2}, {1}),
 ]

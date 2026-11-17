@@ -82,6 +82,7 @@ bribery     Gift/payment requested during an inspection (among firms inspected) 
 competition Can raise prices without losing customers                                     4.1     6.0  365.5   158.6  1012.0   272.0           23.6    22.1         20.4    18.5
             Competes with unregistered or informal firms                                  5.1     7.8  366.7   159.6  1015.0   274.0           55.2    53.6         54.1    52.1
             Competition increased in the last year                                        3.7     5.9  368.3   159.7  1023.0   275.0           82.7    80.0         84.0    82.6
+            Main market dominated by one or a few firms                                   3.7     5.1  355.2   149.0   969.0   256.0           17.3    15.6         14.5    11.1
 obstacle    Obstacle: Access to finance                                                   5.0     7.6  368.5   159.7  1024.0   275.0           35.2    35.3         38.5    39.8
             Obstacle: Access to land                                                      3.9     6.6  364.1   156.4  1014.0   268.0           15.4    21.3         18.0    23.1
             Obstacle: Business licensing and permits                                      4.4     7.0  367.6   158.7  1023.0   274.0           21.5    25.5         25.3    28.6

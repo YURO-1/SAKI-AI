@@ -1,37 +1,39 @@
 === Rule tiers (share of firms at risk) ===
-[(50, 'High'), (30, 'Elevated'), (15, 'Moderate'), (0, 'Low')]
+[(50, 'High'), (30, 'Elevated'), (15, 'Moderate'), (0, 'Low')] | levelled families: ['bribery', 'obstacle']
 
-=== All sectors: risk share and level ===
-                                                                           risk_share             level          
-scope                                                                           Kenya Nairobi     Kenya   Nairobi
-indicator                                                                                                        
-Competition increased in the last year                                           84.0    82.6      High      High
-Cannot raise prices without losing customers                                     79.6    81.5      High      High
-Obstacle: Tax rates                                                              64.3    63.7      High      High
-Competes with unregistered or informal firms                                     54.1    52.1      High      High
-Obstacle: Practices of informal-sector competitors                               43.9    48.5  Elevated  Elevated
-Obstacle: Corruption                                                             40.8    45.5  Elevated  Elevated
-Obstacle: Political instability                                                  40.1    41.1  Elevated  Elevated
-Obstacle: Tax administration                                                     38.6    40.4  Elevated  Elevated
-Obstacle: Access to finance                                                      38.5    39.8  Elevated  Elevated
-Obstacle: Business licensing and permits                                         25.3    28.6  Moderate  Moderate
-Gift/payment requested during an inspection (among firms inspected)              25.2    19.0  Moderate  Moderate
-Obstacle: Customs and trade regulations                                          24.8    29.7  Moderate  Moderate
-Obstacle: Crime, theft and disorder                                              22.2    26.1  Moderate  Moderate
-Gift/payment requested for an operating licence (among firms that applied)       19.8    18.0  Moderate  Moderate
-Obstacle: Access to land                                                         18.0    23.1  Moderate  Moderate
-Obstacle: Electricity                                                            17.7    15.8  Moderate  Moderate
-Obstacle: Labour regulations                                                     17.2    20.7  Moderate  Moderate
-Obstacle: Transport                                                              16.6    19.7  Moderate  Moderate
-Obstacle: Courts                                                                 16.2    21.2  Moderate  Moderate
-Obstacle: Cost of hiring new workers                                             14.4    17.6       Low  Moderate
-Obstacle: Inadequately educated workforce                                        11.9    16.2       Low  Moderate
-Obstacle: Regulation of dismissing workers                                       11.9    15.5       Low  Moderate
+=== All sectors: risk share, margin, level, level_certain ===
+                                                                           risk_share         moe_pp                 level               level_certain        
+scope                                                                           Kenya Nairobi  Kenya Nairobi         Kenya       Nairobi         Kenya Nairobi
+indicator                                                                                                                                                     
+Competition increased in the last year                                           84.0    82.6    3.7     5.9  Context only  Context only          None    None
+Cannot raise prices without losing customers                                     79.6    81.5    4.1     6.0  Context only  Context only          None    None
+Obstacle: Tax rates                                                              64.3    63.7    4.9     7.5          High          High          True    True
+Competes with unregistered or informal firms                                     54.1    52.1    5.1     7.8  Context only  Context only          None    None
+Obstacle: Practices of informal-sector competitors                               43.9    48.5    5.1     7.8      Elevated      Elevated          True   False
+Obstacle: Corruption                                                             40.8    45.5    5.0     7.7      Elevated      Elevated          True   False
+Obstacle: Political instability                                                  40.1    41.1    5.0     7.6      Elevated      Elevated          True    True
+Obstacle: Tax administration                                                     38.6    40.4    5.0     7.6      Elevated      Elevated          True    True
+Obstacle: Access to finance                                                      38.5    39.8    5.0     7.6      Elevated      Elevated          True    True
+Obstacle: Business licensing and permits                                         25.3    28.6    4.4     7.0      Moderate      Moderate          True   False
+Gift/payment requested during an inspection (among firms inspected)              25.2    19.0    5.5     8.3      Moderate      Moderate         False   False
+Obstacle: Customs and trade regulations                                          24.8    29.7    4.5     7.2      Moderate      Moderate          True   False
+Obstacle: Crime, theft and disorder                                              22.2    26.1    4.2     6.8      Moderate      Moderate          True   False
+Gift/payment requested for an operating licence (among firms that applied)       19.8    18.0    4.4     6.3      Moderate      Moderate          True   False
+Obstacle: Access to land                                                         18.0    23.1    3.9     6.6      Moderate      Moderate         False    True
+Obstacle: Electricity                                                            17.7    15.8    3.9     5.7      Moderate      Moderate         False   False
+Obstacle: Labour regulations                                                     17.2    20.7    3.9     6.3      Moderate      Moderate         False   False
+Obstacle: Transport                                                              16.6    19.7    3.8     6.2      Moderate      Moderate         False   False
+Obstacle: Courts                                                                 16.2    21.2    3.8     6.3      Moderate      Moderate         False   False
+Main market dominated by one or a few firms                                      14.5    11.1    3.7     5.1  Context only  Context only          None    None
+Obstacle: Cost of hiring new workers                                             14.4    17.6    3.6     5.9           Low      Moderate         False   False
+Obstacle: Inadequately educated workforce                                        11.9    16.2    3.3     5.7           Low      Moderate         False   False
+Obstacle: Regulation of dismissing workers                                       11.9    15.5    3.3     5.6           Low      Moderate         False   False
 
 === Nairobi vs Kenya (all sectors); beyond_margin = gap exceeds Nairobi 95% margin ===
                                                                             kenya  nairobi  gap  nairobi_moe  beyond_margin
 indicator                                                                                                                  
 Gift/payment requested during an inspection (among firms inspected)          25.2     19.0 -6.2          8.3          False
+Main market dominated by one or a few firms                                  14.5     11.1 -3.4          5.1          False
 Competes with unregistered or informal firms                                 54.1     52.1 -2.0          7.8          False
 Obstacle: Electricity                                                        17.7     15.8 -1.9          5.7          False
 Gift/payment requested for an operating licence (among firms that applied)   19.8     18.0 -1.8          6.3          False
@@ -56,31 +58,47 @@ Obstacle: Access to land                                                     18.
 
 === Resolution status by requested scope and sector ===
 requested_scope  requested_sector               status      
-Kenya            All sectors                    direct          22
-                 Business & financial services  fallback        22
-                 Construction                   direct          22
-                 Education                      no WBES data    22
-                 Food & accommodation           direct          22
-                 Health                         no WBES data    22
-                 Manufacturing                  direct          22
-                 Other                          fallback        22
-                 Personal services              no WBES data    22
-                 Retail trade                   direct          22
-                 Transport & storage            fallback        22
+Kenya            All sectors                    direct          23
+                 Business & financial services  fallback        23
+                 Construction                   direct          23
+                 Education                      no WBES data    23
+                 Food & accommodation           direct          23
+                 Health                         no WBES data    23
+                 Manufacturing                  direct          23
+                 Other                          fallback        23
+                 Personal services              no WBES data    23
+                 Retail trade                   direct          23
+                 Transport & storage            fallback        23
+                 Wholesale & motor trade        direct          23
+Nairobi          All sectors                    direct          23
+                 Business & financial services  fallback        23
+                 Construction                   fallback        23
+                 Education                      no WBES data    23
+                 Food & accommodation           fallback        23
+                 Health                         no WBES data    23
+                 Manufacturing                  fallback        23
+                 Other                          fallback        23
+                 Personal services              no WBES data    23
+                 Retail trade                   fallback        23
+                 Transport & storage            fallback        23
                  Wholesale & motor trade        direct          22
-Nairobi          All sectors                    direct          22
-                 Business & financial services  fallback        22
-                 Construction                   fallback        22
-                 Education                      no WBES data    22
-                 Food & accommodation           fallback        22
-                 Health                         no WBES data    22
-                 Manufacturing                  fallback        22
-                 Other                          fallback        22
-                 Personal services              no WBES data    22
-                 Retail trade                   fallback        22
-                 Transport & storage            fallback        22
-                 Wholesale & motor trade        direct          21
                                                 fallback         1
+
+=== Fallback rows in Nairobi / Wholesale (which indicator?) ===
+                                                               indicator    status source_scope            source_sector  n_eff
+481  Gift/payment requested during an inspection (among firms inspected)  fallback        Kenya  Wholesale & motor trade   57.6
+
+=== Direct sector rows: how many levels are certain? ===
+                                        certain  total
+requested_scope requested_sector                      
+Kenya           All sectors                  10     19
+                Construction                  1     19
+                Food & accommodation          0     19
+                Manufacturing                 2     19
+                Retail trade                  1     19
+                Wholesale & motor trade       1     19
+Nairobi         All sectors                   5     19
+                Wholesale & motor trade       1     18
 
 === Effective sample sizes, Nairobi sector cells (obstacle rows) ===
                                n_valid  n_eff
