@@ -1,0 +1,552 @@
+import { useState, type ReactNode } from "react";
+
+const skyline =
+  "https://images.unsplash.com/photo-1781504841876-0718e1aeb9de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxOYWlyb2JpJTIwS2VueWElMjBza3lsaW5lJTIwbW9kZXJuJTIwY2l0eSUyMGJ1c2luZXNzJTIwZGlzdHJpY3R8ZW58MXx8fHwxNzkwMzM3NDM0fDA&ixlib=rb-4.1.0&q=85&w=1800";
+const entrepreneur =
+  "https://images.unsplash.com/photo-1675250719891-37d4747c9e3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw0fHxLZW55YW4lMjBBZnJpY2FuJTIwZW50cmVwcmVuZXVyJTIwbGFwdG9wJTIwc21hbGwlMjBidXNpbmVzcyUyMG93bmVyfGVufDF8fHx8MTc5MDMzNzQzNHww&ixlib=rb-4.1.0&q=85&w=1200";
+const businessOwner =
+  "https://images.unsplash.com/photo-1594077810908-9ffd89d704ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxLZW55YW4lMjBBZnJpY2FuJTIwZW50cmVwcmVuZXVyJTIwbGFwdG9wJTIwc21hbGwlMjBidXNpbmVzcyUyMG93bmVyfGVufDF8fHx8MTc5MDMzNzQzNHww&ixlib=rb-4.1.0&q=85&w=1200";
+const localProduceBusiness =
+  "https://images.unsplash.com/photo-1562082089-ae7d7acbd18d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxLZW55YSUyME5haXJvYmklMjBsb2NhbCUyMHNtYWxsJTIwYnVzaW5lc3MlMjBzaG9wJTIwbWFya2V0JTIwcmVzdGF1cmFudHxlbnwxfHx8fDE3OTAzMzg2NjJ8MA&ixlib=rb-4.1.0&q=85&w=1400";
+const localFoodBusiness =
+  "https://images.unsplash.com/photo-1747359636521-5a3f1cf37606?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw2fHxLZW55YSUyME5haXJvYmklMjBsb2NhbCUyMHNtYWxsJTIwYnVzaW5lc3MlMjBzaG9wJTIwbWFya2V0JTIwcmVzdGF1cmFudHxlbnwxfHx8fDE3OTAzMzg2NjJ8MA&ixlib=rb-4.1.0&q=85&w=1400";
+const localTailoringBusiness =
+  "https://images.unsplash.com/photo-1637997840862-9aafaf835eed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxLZW55YSUyME5haXJvYmklMjBsb2NhbCUyMHRhaWxvciUyMHdvcmtzaG9wJTIwc21hbGwlMjBidXNpbmVzc3xlbnwxfHx8fDE3OTAzMzg3NzF8MA&ixlib=rb-4.1.0&q=85&w=1400";
+const localPrintBusiness =
+  "https://images.unsplash.com/photo-1785829414436-2f5ce9b1f658?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw3fHxLZW55YSUyME5haXJvYmklMjBsb2NhbCUyMHRhaWxvciUyMHdvcmtzaG9wJTIwc21hbGwlMjBidXNpbmVzc3xlbnwxfHx8fDE3OTAzMzg3NzF8MA&ixlib=rb-4.1.0&q=85&w=1400";
+
+type IconName =
+  | "chart"
+  | "pulse"
+  | "users"
+  | "layers"
+  | "shield"
+  | "spark"
+  | "arrow"
+  | "check"
+  | "menu"
+  | "linkedin"
+  | "instagram"
+  | "x";
+
+function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: string }) {
+  const paths: Record<IconName, ReactNode> = {
+    chart: (
+      <>
+        <path d="M4 19V9m6 10V5m6 14v-7m4 7H2" />
+        <path d="m4 7 5-4 6 5 5-4" />
+      </>
+    ),
+    pulse: <path d="M3 12h4l2.2-6 4 12 2.3-6H21" />,
+    users: (
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
+    layers: (
+      <>
+        <path d="m12 2 9 5-9 5-9-5 9-5Z" />
+        <path d="m3 12 9 5 9-5M3 17l9 5 9-5" />
+      </>
+    ),
+    shield: (
+      <>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+        <path d="m9 12 2 2 4-4" />
+      </>
+    ),
+    spark: (
+      <>
+        <path d="m12 3-1.5 4.5L6 9l4.5 1.5L12 15l1.5-4.5L18 9l-4.5-1.5L12 3Z" />
+        <path d="m19 15-.7 2.3L16 18l2.3.7L19 21l.7-2.3L22 18l-2.3-.7L19 15ZM5 3l-.7 2.3L2 6l2.3.7L5 9l.7-2.3L8 6l-2.3-.7L5 3Z" />
+      </>
+    ),
+    arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
+    check: <path d="m5 12 4 4L19 6" />,
+    menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+    linkedin: (
+      <>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
+        <path d="M2 9h4v12H2z" />
+        <circle cx="4" cy="4" r="2" />
+      </>
+    ),
+    instagram: (
+      <>
+        <rect width="18" height="18" x="3" y="3" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r=".5" fill="currentColor" />
+      </>
+    ),
+    x: <path d="M4 4l16 16M20 4 4 20" />,
+  };
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {paths[name]}
+    </svg>
+  );
+}
+
+function Brand({ light = false }: { light?: boolean }) {
+  return (
+    <a href="#home" className="group flex items-center gap-3" aria-label="BizScope Nairobi home">
+      <span
+        className={`grid h-11 w-11 place-items-center rounded-[14px] ${light ? "bg-white/12 text-amber-300" : "bg-emerald-900 text-amber-400"} shadow-sm`}
+      >
+        <Icon name="chart" className="h-5 w-5" />
+      </span>
+      <span>
+        <strong className={`block text-[15px] leading-tight ${light ? "text-white" : "text-emerald-950"}`}>
+          BizScope Nairobi
+        </strong>
+        <span className={`block text-[9px] font-medium tracking-[0.04em] ${light ? "text-white/55" : "text-slate-500"}`}>
+          Smarter Decisions. Stronger Businesses.
+        </span>
+      </span>
+    </a>
+  );
+}
+
+const features: { icon: IconName; title: string; text: string }[] = [
+  { icon: "chart", title: "Feasibility Analysis", text: "Know if your business idea is viable." },
+  { icon: "pulse", title: "Market Demand", text: "Understand the potential demand for your product or service." },
+  { icon: "users", title: "Competition Insights", text: "Understand the competitive environment around your business." },
+  { icon: "layers", title: "Resource Planning", text: "Identify important capital, staffing and resource requirements." },
+  { icon: "shield", title: "Risk Assessment", text: "Identify potential challenges before investing." },
+  {
+    icon: "spark",
+    title: "Data-Driven Insights",
+    text: "Make decisions using historical Kenyan business data and machine learning.",
+  },
+];
+
+const steps = [
+  {
+    title: "Enter Your Business Details",
+    text: "Tell us about your business idea, location, capital and other details.",
+  },
+  {
+    title: "AI Analyzes the Data",
+    text: "Our system compares your information with historical Kenyan business data.",
+  },
+  {
+    title: "Get Your Analysis",
+    text: "Receive insights about feasibility, demand, competition, requirements and risks.",
+  },
+  {
+    title: "Make an Informed Decision",
+    text: "Use the insights to plan and prepare your business.",
+  },
+];
+
+export default function App() {
+  const [businessSlide, setBusinessSlide] = useState(0);
+  const localBusinesses = [
+    {
+      image: localProduceBusiness,
+      label: "Retail & fresh produce",
+      title: "Understand local demand and daily operating needs",
+      alt: "A colourful local fruit and produce business in Kenya",
+    },
+    {
+      image: localFoodBusiness,
+      label: "Food & hospitality",
+      title: "Plan around competition, costs and customer demand",
+      alt: "A local Kenyan food vendor preparing food for customers",
+    },
+    {
+      image: localTailoringBusiness,
+      label: "Fashion & tailoring",
+      title: "Estimate staffing, equipment and growth requirements",
+      alt: "A team working at sewing machines in a Kenyan tailoring business",
+    },
+    {
+      image: localPrintBusiness,
+      label: "Printing & creative services",
+      title: "Evaluate equipment costs and find the right market",
+      alt: "A Kenyan print business owner working with a heat press",
+    },
+  ];
+
+  return (
+    <main className="min-h-screen overflow-hidden bg-[#dfe8e2] text-slate-900">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#062f26]/95 backdrop-blur-xl">
+        <div className="mx-auto flex h-[78px] max-w-[1240px] items-center justify-between px-6">
+          <Brand light />
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
+            {["Home", "About", "How It Works", "Features", "Contact"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
+                className="text-[13px] font-semibold text-white/70 transition-colors hover:text-white"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="#cta"
+            className="hidden rounded-full bg-amber-400 px-6 py-3 text-[13px] font-bold text-emerald-950 shadow-lg shadow-black/15 transition hover:-translate-y-0.5 hover:bg-amber-300 sm:block"
+          >
+            Get Started
+          </a>
+          <button className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white lg:hidden" aria-label="Open menu">
+            <Icon name="menu" />
+          </button>
+        </div>
+      </header>
+
+      <section id="home" className="relative bg-[#0a3b30] pt-[78px]">
+        <div className="pointer-events-none absolute left-[-10rem] top-16 h-[32rem] w-[32rem] rounded-full bg-emerald-600/20 blur-3xl" />
+        <div className="mx-auto grid min-h-[710px] max-w-[1380px] items-center gap-10 px-6 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-12">
+          <div className="relative z-10 max-w-[650px] lg:pl-8">
+            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-300/25 bg-white/8 px-4 py-2 text-[10px] font-extrabold tracking-[0.16em] text-emerald-100">
+              <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_0_4px_rgba(251,191,36,.16)]" />
+              AI-POWERED BUSINESS ANALYSIS
+            </div>
+            <h1 className="max-w-[620px] text-[clamp(3rem,5vw,5.25rem)] font-bold leading-[0.99] tracking-[-0.055em] text-white">
+              Turn Your Business Idea Into a{" "}
+              <span className="relative text-emerald-300">
+                Smarter Decision
+                <svg className="absolute -bottom-2 left-0 w-full text-amber-400" viewBox="0 0 300 12" fill="none">
+                  <path d="M3 8c64-8 177-8 294-3" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                </svg>
+              </span>
+            </h1>
+            <p className="mt-8 max-w-[590px] text-[16px] leading-7 text-emerald-50/70">
+              BizScope Nairobi helps aspiring entrepreneurs and small businesses understand the feasibility, demand,
+              competition, and potential risks of their business ideas using data-driven insights and AI-powered analysis.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-4">
+              <a
+                href="#cta"
+                className="group inline-flex items-center gap-3 rounded-full bg-amber-400 px-7 py-4 text-sm font-bold text-emerald-950 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:bg-amber-300"
+              >
+                Analyze My Business
+                <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" />
+              </a>
+              <a
+                href="#how-it-works"
+                className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-7 py-4 text-sm font-bold text-white shadow-sm transition hover:bg-white/15"
+              >
+                <span className="grid h-5 w-5 place-items-center rounded-full bg-amber-400 text-[8px] text-emerald-950">▶</span>
+                Learn How It Works
+              </a>
+            </div>
+            <div className="mt-10 flex items-center gap-5 text-xs text-white/55">
+              <div className="flex -space-x-2">
+                {[businessOwner, entrepreneur].map((src) => (
+                  <img key={src} className="h-9 w-9 rounded-full border-2 border-white object-cover" src={src} alt="" />
+                ))}
+                <span className="grid h-9 w-9 place-items-center rounded-full border-2 border-white bg-amber-400 text-[10px] font-bold text-emerald-950">
+                  KE
+                </span>
+              </div>
+              <span>
+                Built for <strong className="text-white">Kenyan entrepreneurs</strong>
+              </span>
+            </div>
+          </div>
+
+          <div className="relative min-h-[510px] lg:min-h-[630px]">
+            <div className="absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[#0a3b30] to-transparent" />
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] lg:rounded-r-none">
+              <img className="h-full w-full object-cover" src={skyline} alt="Modern Nairobi skyline above the city's green canopy" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950/50 via-transparent to-amber-100/10" />
+            </div>
+            <div className="absolute bottom-8 left-5 z-20 rounded-2xl border border-white/40 bg-white/90 p-4 shadow-2xl backdrop-blur-md sm:left-12">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-100 text-emerald-800">
+                  <Icon name="spark" />
+                </span>
+                <div>
+                  <div className="text-xs font-bold text-emerald-950">AI-powered clarity</div>
+                  <div className="mt-0.5 flex gap-1">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <span key={i} className="h-1.5 w-5 rounded-full bg-emerald-500" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="handwritten absolute right-5 top-7 z-20 max-w-[180px] rotate-[-4deg] text-2xl text-white drop-shadow-md sm:right-12">
+              Better Insights.
+              <br /> Brighter Futures.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" className="relative z-20 bg-[#0a3b30] px-6 pb-28">
+        <div className="mx-auto grid max-w-[1240px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#123f36] shadow-[0_22px_70px_rgba(0,20,14,.3)] sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, index) => (
+            <article
+              key={feature.title}
+              className={`group flex gap-4 p-7 transition hover:bg-white/5 ${index < 3 ? "lg:border-b lg:border-white/10" : ""} ${index % 3 !== 2 ? "lg:border-r lg:border-white/10" : ""}`}
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-emerald-300/12 text-emerald-300 transition group-hover:bg-amber-400 group-hover:text-emerald-950">
+                <Icon name={feature.icon} />
+              </span>
+              <div>
+                <h3 className="text-sm font-bold text-white">{feature.title}</h3>
+                <p className="mt-2 text-[12px] leading-5 text-white/55">{feature.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#0a3b30] px-6 pb-28 text-white">
+        <div className="mx-auto max-w-[1160px]">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div className="max-w-2xl">
+              <p className="text-[10px] font-extrabold tracking-[0.18em] text-amber-300">BUILT FOR LOCAL BUSINESS</p>
+              <h2 className="mt-4 text-3xl font-bold tracking-[-0.04em] md:text-5xl">
+                Insight for the businesses that move Kenya forward
+              </h2>
+            </div>
+            <div className="flex items-end gap-6">
+              <p className="max-w-sm text-sm leading-6 text-white/55">
+                From neighbourhood retailers to growing food businesses, BizScope helps founders test demand, understand
+                costs and plan with greater confidence.
+              </p>
+              <div className="hidden shrink-0 gap-2 md:flex">
+                <button
+                  onClick={() => setBusinessSlide((current) => (current === 0 ? 1 : 0))}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/15"
+                  aria-label="Show previous businesses"
+                >
+                  <Icon name="arrow" className="h-4 w-4 rotate-180" />
+                </button>
+                <button
+                  onClick={() => setBusinessSlide((current) => (current === 0 ? 1 : 0))}
+                  className="grid h-11 w-11 place-items-center rounded-full bg-amber-400 text-emerald-950 transition hover:bg-amber-300"
+                  aria-label="Show next businesses"
+                >
+                  <Icon name="arrow" className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {localBusinesses.slice(businessSlide * 2, businessSlide * 2 + 2).map((business) => (
+              <article
+                key={business.label}
+                className="business-card group relative h-[440px] overflow-hidden rounded-[2rem] border border-white/10 bg-emerald-950"
+              >
+                <img
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  src={business.image}
+                  alt={business.alt}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#042a22] via-[#042a22]/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-7 md:p-9">
+                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[9px] font-bold tracking-[0.14em] text-amber-200 backdrop-blur-md">
+                    {business.label.toUpperCase()}
+                  </span>
+                  <h3 className="mt-4 max-w-md text-xl font-bold leading-7 tracking-[-0.025em] md:text-2xl">
+                    {business.title}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center justify-center gap-3">
+            {[0, 1].map((slide) => (
+              <button
+                key={slide}
+                onClick={() => setBusinessSlide(slide)}
+                className={`h-2 rounded-full transition-all ${businessSlide === slide ? "w-8 bg-amber-400" : "w-2 bg-white/25 hover:bg-white/45"}`}
+                aria-label={`Show business slide ${slide + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="bg-[#cddbd3] py-28">
+        <div className="mx-auto grid max-w-[1160px] items-center gap-16 px-6 lg:grid-cols-2">
+          <div className="relative">
+            <div className="absolute -left-8 -top-8 h-40 w-40 rounded-full border border-emerald-200" />
+            <div className="relative h-[580px] overflow-hidden rounded-[2.5rem] shadow-2xl shadow-emerald-950/15">
+              <img className="h-full w-full object-cover" src={skyline} alt="Nairobi's modern business district and green city landscape" />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/50 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/20 bg-emerald-950/82 p-5 text-white backdrop-blur">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-[10px] font-bold tracking-[0.15em] text-amber-300">BUILT AROUND YOU</div>
+                    <div className="mt-1 text-sm font-semibold">Local context. Practical guidance.</div>
+                  </div>
+                  <span className="grid h-11 w-11 place-items-center rounded-full bg-amber-400 text-emerald-950">
+                    <Icon name="arrow" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow">WHY CHOOSE BIZSCOPE NAIROBI</p>
+            <h2 className="section-heading mt-4">Make Informed Decisions With Confidence</h2>
+            <p className="mt-6 text-[16px] leading-7 text-slate-600">
+              BizScope Nairobi combines Kenyan business data, machine learning and data analytics to help entrepreneurs
+              understand the real potential behind a proposed business—before committing time and capital.
+            </p>
+            <div className="mt-9 grid gap-5">
+              {[
+                "Focused on Nairobi's business environment",
+                "Data-backed insights instead of guesswork",
+                "Simple and easy-to-understand analysis",
+                "Built for Kenyan entrepreneurs",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-4">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-700 text-white">
+                    <Icon name="check" className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-semibold text-emerald-950">{item}</span>
+                </div>
+              ))}
+            </div>
+            <a href="#how-it-works" className="mt-10 inline-flex items-center gap-2 text-sm font-bold text-emerald-700">
+              Explore our approach <Icon name="arrow" className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-emerald-950 py-24 text-white">
+        <img className="absolute inset-0 h-full w-full object-cover opacity-[0.1] mix-blend-luminosity" src={skyline} alt="" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/90 to-emerald-900/85" />
+        <div className="relative mx-auto max-w-[1160px] px-6">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div className="max-w-xl">
+              <p className="text-xs font-bold tracking-[0.16em] text-amber-300">OUR VISION FOR IMPACT</p>
+              <h2 className="mt-4 text-4xl font-bold tracking-[-0.04em] md:text-5xl">Supporting Nairobi's Entrepreneurs</h2>
+              <p className="mt-5 text-sm leading-6 text-white/65">
+                Better business decisions can contribute to stronger businesses, new opportunities and economic growth.
+              </p>
+            </div>
+            <div className="rounded-full border border-white/15 px-4 py-2 text-[10px] font-semibold text-white/60">
+              Prototype figures — illustrative only
+            </div>
+          </div>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-white/12 sm:grid-cols-3">
+            {[
+              ["1,000+", "Business records analyzed"],
+              ["500+", "Entrepreneurs supported"],
+              ["Data-driven", "Business insights"],
+            ].map(([value, label]) => (
+              <div key={label} className="bg-emerald-950/45 p-8 backdrop-blur-sm">
+                <div className="text-4xl font-bold tracking-[-0.04em] text-amber-300">{value}</div>
+                <div className="mt-3 text-xs font-medium text-white/65">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="bg-[#d9e4dd] py-28">
+        <div className="mx-auto max-w-[1160px] px-6">
+          <div className="mx-auto max-w-xl text-center">
+            <p className="eyebrow">SIMPLE BY DESIGN</p>
+            <h2 className="section-heading mt-4">How It Works</h2>
+            <p className="mt-4 text-sm text-slate-500">Get your business analysis in a few simple steps.</p>
+          </div>
+          <div className="relative mt-16 grid gap-8 md:grid-cols-4">
+            <div className="absolute left-[12.5%] right-[12.5%] top-8 hidden border-t border-dashed border-emerald-300 md:block" />
+            {steps.map((step, index) => (
+              <article key={step.title} className="relative text-center">
+                <span className="relative z-10 mx-auto grid h-16 w-16 place-items-center rounded-full border-8 border-[#d9e4dd] bg-emerald-900 text-lg font-bold text-white shadow-lg shadow-emerald-900/20">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-6 text-[15px] font-bold text-emerald-950">{step.title}</h3>
+                <p className="mx-auto mt-3 max-w-[230px] text-xs leading-5 text-slate-500">{step.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#cbd8cf] py-24">
+        <div className="mx-auto grid max-w-[1080px] items-center gap-12 px-6 md:grid-cols-[0.85fr_1.15fr]">
+          <div className="relative mx-auto h-[420px] w-full max-w-[390px]">
+            <div className="absolute -bottom-4 -right-4 h-full w-full rounded-[2rem] border-2 border-amber-300" />
+            <img className="relative h-full w-full rounded-[2rem] object-cover shadow-xl" src={businessOwner} alt="Small business owner using a laptop" />
+          </div>
+          <div>
+            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1.5 text-[9px] font-extrabold tracking-[0.14em] text-amber-800">
+              PROTOTYPE TESTIMONIAL
+            </span>
+            <div className="mt-7 font-serif text-7xl leading-8 text-emerald-200">“</div>
+            <blockquote className="mt-3 text-2xl font-semibold leading-10 tracking-[-0.025em] text-emerald-950 md:text-3xl">
+              BizScope Nairobi gave me the clarity I needed before investing in my business. The insights were practical
+              and easy to understand.
+            </blockquote>
+            <div className="mt-8 flex items-center gap-4">
+              <span className="h-px w-10 bg-amber-400" />
+              <div>
+                <div className="text-sm font-bold text-emerald-950">James Mwangi</div>
+                <div className="mt-1 text-xs text-slate-500">Small Business Owner, Nairobi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="cta" className="px-6 py-24">
+        <div className="relative mx-auto max-w-[1160px] overflow-hidden rounded-[2.5rem] bg-emerald-800 px-8 py-20 text-center text-white shadow-2xl shadow-emerald-950/25">
+          <div className="absolute -left-20 -top-24 h-80 w-80 rounded-full border-[60px] border-white/[0.05]" />
+          <div className="absolute -bottom-32 -right-16 h-80 w-80 rounded-full border-[70px] border-amber-300/[0.12]" />
+          <div className="relative">
+            <p className="text-xs font-bold tracking-[0.18em] text-amber-300">YOUR NEXT MOVE STARTS HERE</p>
+            <h2 className="mt-5 text-4xl font-bold tracking-[-0.045em] md:text-6xl">Have a Business Idea?</h2>
+            <p className="mt-5 text-base text-emerald-50/80">Understand your idea before you invest.</p>
+            <a
+              href="#home"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-amber-400 px-8 py-4 text-sm font-extrabold text-emerald-950 shadow-xl shadow-emerald-950/20 transition hover:-translate-y-0.5 hover:bg-amber-300"
+            >
+              Analyze My Business <Icon name="arrow" className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer id="contact" className="bg-[#052f25] text-white">
+        <div className="mx-auto max-w-[1160px] px-6 py-16">
+          <div className="flex flex-col justify-between gap-10 border-b border-white/10 pb-12 md:flex-row md:items-center">
+            <Brand light />
+            <nav className="flex flex-wrap gap-x-7 gap-y-3 text-xs font-semibold text-white/60" aria-label="Footer navigation">
+              {["Home", "About", "How It Works", "Features", "Contact"].map((item) => (
+                <a key={item} className="transition hover:text-white" href={`#${item.toLowerCase().replaceAll(" ", "-")}`}>
+                  {item}
+                </a>
+              ))}
+            </nav>
+            <div className="flex gap-2">
+              {(["linkedin", "instagram", "x"] as IconName[]).map((name) => (
+                <a key={name} href="#contact" aria-label={name} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white hover:text-emerald-950">
+                  <Icon name={name} className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col justify-between gap-3 pt-7 text-[11px] text-white/40 sm:flex-row">
+            <p>© 2026 BizScope Nairobi. All rights reserved.</p>
+            <p>Smarter Decisions. Stronger Businesses.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}

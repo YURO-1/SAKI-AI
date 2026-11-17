@@ -1,0 +1,34 @@
+# Node / frontend
+node_modules/
+dist/
+.env
+.env.local
+
+# Java / Spring Boot
+target/
+build/
+*.class
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Secrets and local config
+application-local.properties
+*.pem
+
+# Data (raw data stays local; processed data we decide later)
+data/raw/*
+!data/raw/.gitkeep
+data/survey/*
+!data/survey/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

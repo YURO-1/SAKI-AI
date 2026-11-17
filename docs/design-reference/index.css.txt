@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Manrope", sans-serif;
+  color: #0f172a;
+  background: #dfe8e2;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.handwritten {
+  font-family: "Caveat", cursive;
+}
+
+.eyebrow {
+  color: #047857;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.section-heading {
+  color: #053d30;
+  font-size: clamp(2.2rem, 4vw, 3.55rem);
+  font-weight: 700;
+  letter-spacing: -0.048em;
+  line-height: 1.08;
+}
+
+.business-card {
+  animation: business-card-in 420ms ease both;
+}
+
+@keyframes business-card-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+::selection {
+  color: #053d30;
+  background: #fcd34d;
+}
