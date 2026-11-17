@@ -1,0 +1,48 @@
+Eligible Nairobi rows: 973
+
+Spearman correlation, initial capital vs monthly revenue: 0.49
+
+Revenue tier (%) by initial capital band:
+revenue_tier   Low  Medium  High
+capital_band                    
+<50k          60.2    30.4   9.4
+50k-200k      47.7    43.1   9.2
+200k-1M       28.1    50.8  21.1
+>1M            4.5    34.0  61.5
+
+Counts per capital band:
+capital_band
+<50k        191
+50k-200k    283
+200k-1M     299
+>1M         200
+
+Revenue tier (%) by registration:
+revenue_tier   Low  Medium  High
+registered                      
+0             48.8    39.4  11.8
+1             24.4    42.5  33.1
+
+Sector benchmarks (reliable = at least 30 establishments):
+                 sector_group  n_establishments  median_monthly_revenue_ksh  median_initial_capital_ksh  pct_high  reliable
+                 Retail trade               385                     19500.0                    150000.0      13.2         1
+Business & financial services               131                     36000.0                    500000.0      36.6         1
+           Education & health               106                     60000.0                    250000.0      35.8         1
+            Personal services                84                     18000.0                     80000.0       4.8         1
+                Manufacturing                76                     30000.0                     95000.0      36.8         1
+         Food & accommodation                69                      6300.0                    300000.0      10.1         1
+      Wholesale & motor trade                58                     68250.0                    225000.0      41.4         1
+                        Other                39                     22500.0                    300000.0      15.4         1
+          Transport & storage                25                    210000.0                    500000.0      96.0         0
+
+Surveyed Nairobi establishments per sector (all rows, a density PROXY only):
+sector_group
+Retail trade                     554
+Business & financial services    273
+Education & health               184
+Food & accommodation             118
+Wholesale & motor trade          104
+Personal services                104
+Manufacturing                    101
+Other                             56
+Transport & storage               52
