@@ -34,3 +34,5 @@ data/processed/*
 .DS_Store
 Thumbs.db
 .vscode/
+
+ml-service/models/*.joblib

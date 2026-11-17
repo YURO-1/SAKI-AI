@@ -1,0 +1,46 @@
+Rows used: 973
+Features: ['sector_group', 'premises_group', 'registered', 'main_buyer_code', 'capital_source_code', 'initial_capital_ksh', 'founding_employees']
+Class distribution:
+revenue_tier
+Medium    0.411
+Low       0.353
+High      0.236
+
+Train: 778   Test: 195
+
+=== 5-fold x 3 repeats cross-validation (training data only) ===
+Baseline (most frequent)   acc 0.411±0.001 | F1 0.194±0.000 | prec 0.137 | rec 0.333
+Logistic Regression        acc 0.577±0.039 | F1 0.583±0.040 | prec 0.580 | rec 0.600
+Random Forest              acc 0.629±0.044 | F1 0.634±0.045 | prec 0.641 | rec 0.650
+Gradient Boosting          acc 0.672±0.028 | F1 0.679±0.030 | prec 0.704 | rec 0.667
+
+Best by cross-validated macro-F1: Gradient Boosting
+
+=== Test-set results (evaluated once) ===
+Baseline accuracy: 0.410   macro-F1: 0.194
+Gradient Boosting accuracy: 0.610   macro-F1: 0.625   within one tier: 0.969
+
+              precision    recall  f1-score   support
+
+         Low      0.577     0.594     0.586        69
+      Medium      0.557     0.613     0.583        80
+        High      0.806     0.630     0.707        46
+
+    accuracy                          0.610       195
+   macro avg      0.647     0.612     0.625       195
+weighted avg      0.623     0.610     0.613       195
+
+Confusion matrix (rows = true, columns = predicted; order Low, Medium, High):
+[[41 25  3]
+ [27 49  4]
+ [ 3 14 29]]
+
+Permutation importance (drop in macro-F1 when the feature is shuffled):
+            feature  importance    std
+initial_capital_ksh      0.1642 0.0372
+       sector_group      0.0947 0.0285
+ founding_employees      0.0507 0.0143
+    main_buyer_code      0.0220 0.0114
+     premises_group      0.0114 0.0111
+capital_source_code      0.0017 0.0138
+         registered      0.0013 0.0127

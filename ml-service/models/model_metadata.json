@@ -1,0 +1,113 @@
+{
+  "model_name": "Gradient Boosting",
+  "version": "0.1.0",
+  "trained_at_utc": "2026-11-17T13:17:36.330487+00:00",
+  "sklearn_version": "1.9.1",
+  "target": "revenue_tier (monthly revenue: Low <15,000; Medium 15,000-99,999; High >=100,000 KSh)",
+  "classes": [
+    "Low",
+    "Medium",
+    "High"
+  ],
+  "features": [
+    "sector_group",
+    "premises_group",
+    "registered",
+    "main_buyer_code",
+    "capital_source_code",
+    "initial_capital_ksh",
+    "founding_employees"
+  ],
+  "categorical_features": [
+    "sector_group",
+    "premises_group",
+    "registered",
+    "main_buyer_code",
+    "capital_source_code"
+  ],
+  "numeric_features": [
+    "initial_capital_ksh",
+    "founding_employees"
+  ],
+  "n_rows_total": 973,
+  "data_source": "KNBS MSME Survey 2016, Nairobi establishments",
+  "cv_results_train_only": {
+    "Baseline (most frequent)": {
+      "accuracy": [
+        0.41131513647642687,
+        0.0012966695081730703
+      ],
+      "f1_macro": [
+        0.1942936211429362,
+        0.00043383795084577697
+      ],
+      "precision_macro": [
+        0.13710504549214225,
+        0.0004322231693910281
+      ],
+      "recall_macro": [
+        0.33333333333333326,
+        5.551115123125783e-17
+      ]
+    },
+    "Logistic Regression": {
+      "accuracy": [
+        0.5771353735869865,
+        0.03943926520808594
+      ],
+      "f1_macro": [
+        0.5834251729144395,
+        0.04004284599531088
+      ],
+      "precision_macro": [
+        0.5796793956882417,
+        0.04232239089710663
+      ],
+      "recall_macro": [
+        0.5998156616212172,
+        0.038363547913027575
+      ]
+    },
+    "Random Forest": {
+      "accuracy": [
+        0.6294320374965535,
+        0.04360184454811248
+      ],
+      "f1_macro": [
+        0.6335132235526584,
+        0.04538739542254395
+      ],
+      "precision_macro": [
+        0.6406486513905729,
+        0.04714474026112542
+      ],
+      "recall_macro": [
+        0.6500166264749598,
+        0.0423850963254446
+      ]
+    },
+    "Gradient Boosting": {
+      "accuracy": [
+        0.671825199889716,
+        0.02804702290857809
+      ],
+      "f1_macro": [
+        0.678651288626644,
+        0.03039718576107649
+      ],
+      "precision_macro": [
+        0.7035675773302686,
+        0.02896293760442069
+      ],
+      "recall_macro": [
+        0.6672936825714603,
+        0.03227640813935739
+      ]
+    }
+  },
+  "test_accuracy": 0.6102564102564103,
+  "test_macro_f1": 0.6254548974061169,
+  "test_within_one_tier": 0.9692307692307692,
+  "baseline_test_accuracy": 0.41025641025641024,
+  "limitations": "Snapshot of surviving businesses; cannot predict survival or failure."
+}
