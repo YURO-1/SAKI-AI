@@ -33,6 +33,7 @@ export interface Benchmark {
   p25_monthly_revenue_ksh: number
   p75_monthly_revenue_ksh: number
   median_initial_capital_ksh: number
+  median_founding_employees: number
   pct_high: number
   reliable: boolean | number
 }

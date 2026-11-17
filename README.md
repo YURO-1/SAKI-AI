@@ -14,8 +14,9 @@ Final-year project. Stack: React + TypeScript + Tailwind, Spring Boot, PostgreSQ
 
 ## Current analysis data roles
 - The KNBS-trained model estimates a historical monthly revenue tier; it does not predict whether a new business will succeed.
-- WBES data is used for sector-level operating constraints and competition context, not model training.
-- The analysis API keeps the model estimate, benchmark and WBES evidence separate and includes their limitations.
+- KNBS sector benchmarks provide historical revenue and resource references; WBES provides sector-level operating constraints and competition context, not model training.
+- These secondary-data indicators are not direct customer demand or a forecast of a proposed business's sales.
+- The analysis API keeps the model estimate, historical benchmarks and WBES evidence separate and includes their limitations.
 
 ## Backend API
 The Spring Boot API is in `backend/`. It provides registration/login, owner-scoped business-idea CRUD and saved analysis endpoints.

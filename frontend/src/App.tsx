@@ -5,6 +5,7 @@ import {
   type Analysis,
   type BusinessIdea,
   type BusinessIdeaInput,
+  type ConstraintIndicator,
 } from './api'
 
 const sectors = [
@@ -254,7 +255,7 @@ function App() {
           <div className="mb-7 grid grid-cols-1 gap-4 sm:grid-cols-3">
             <MetricCard label="Your opportunities" value={ideas.length.toString()} note="Ideas saved to your account" accent="green" />
             <MetricCard label="Assessment evidence" value={activeAnalysis ? 'Ready' : 'On demand'} note="Generated from the current data sources" accent="blue" />
-            <MetricCard label="Demand signal" value="Not measured" note="No direct demand survey is integrated yet" accent="sand" />
+            <MetricCard label="Market context" value="Secondary data" note="Historical KNBS activity and WBES sector evidence" accent="sand" />
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)]">
@@ -354,7 +355,7 @@ function App() {
 
           <section id="assessment" className="mt-6">
             {activeAnalysis ? (
-              <AnalysisPanel analysis={activeAnalysis} ideaName={activeIdea?.name ?? 'Business idea'} />
+              <AnalysisPanel analysis={activeAnalysis} idea={activeIdea} />
             ) : (
               <div className="panel-card flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
                 <div>
@@ -437,16 +438,18 @@ function AuthScreen({
   )
 }
 
-function AnalysisPanel({ analysis, ideaName }: { analysis: Analysis; ideaName: string }) {
+function AnalysisPanel({ analysis, idea }: { analysis: Analysis; idea: BusinessIdea | undefined }) {
   const { revenuePrediction, benchmark, constraints, assessmentNotes } = analysis.result
   const indicators = [...constraints.indicators].sort((a, b) => (b.risk_share ?? -1) - (a.risk_share ?? -1))
+  const obstacles = indicators.filter((item) => item.family === 'obstacle')
+  const competition = indicators.filter((item) => item.family === 'competition')
 
   return (
     <div className="space-y-5">
       <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
         <div>
           <p className="section-eyebrow">Assessment / {new Date(analysis.createdAt).toLocaleDateString()}</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">{ideaName}</h2>
+          <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">{idea?.name ?? 'Business idea'}</h2>
         </div>
         <span className="w-fit rounded-full bg-[#eaf2df] px-3 py-1.5 text-xs font-semibold text-[#4f703e]">Evidence by category</span>
       </div>
@@ -482,7 +485,6 @@ function AnalysisPanel({ analysis, ideaName }: { analysis: Analysis; ideaName: s
           <p className="mt-1 text-xs text-slate-500">Nairobi MSME survey 2016 · {benchmark.n_establishments} eligible establishments</p>
           <div className="mt-5 grid grid-cols-2 gap-3">
             <BenchmarkValue label="Median monthly revenue" value={money(benchmark.median_monthly_revenue_ksh)} />
-            <BenchmarkValue label="Median startup capital" value={money(benchmark.median_initial_capital_ksh)} />
             <BenchmarkValue label="Revenue range (middle 50%)" value={`${money(benchmark.p25_monthly_revenue_ksh)} – ${money(benchmark.p75_monthly_revenue_ksh)}`} />
             <BenchmarkValue label="High-tier share" value={`${benchmark.pct_high}%`} />
           </div>
@@ -499,29 +501,48 @@ function AnalysisPanel({ analysis, ideaName }: { analysis: Analysis; ideaName: s
           <span className="text-xs text-slate-400">Share of surveyed firms reporting the issue</span>
         </div>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
-          {indicators.filter((item) => item.family === 'obstacle').slice(0, 6).map((item) => (
-            <div key={item.indicator} className="rounded-xl border border-slate-200 p-4">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-sm font-semibold leading-5 text-slate-700">{item.indicator.replace(/^Obstacle: /, '')}</p>
-                <span className="shrink-0 text-sm font-bold text-[#456b45]">{item.risk_share == null ? '—' : `${item.risk_share}%`}</span>
-              </div>
-              {item.risk_share != null && <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-[#9bb873]" style={{ width: `${Math.min(item.risk_share, 100)}%` }} /></div>}
-              <p className="mt-2 text-[11px] text-slate-400">
-                {item.status === 'fallback' ? `Fallback: ${item.source_scope}, ${item.source_sector}` : item.status}
-                {item.moe_pp != null ? ` · ±${item.moe_pp} pp` : ''}
-              </p>
-            </div>
-          ))}
+          {obstacles.slice(0, 6).map((item) => <EvidenceIndicatorCard key={item.indicator} item={item} />)}
         </div>
-        {indicators.filter((item) => item.family === 'obstacle').length === 0 && <p className="mt-4 text-sm text-slate-500">No WBES constraint observations are available for this sector.</p>}
+        {obstacles.length === 0 && <p className="mt-4 text-sm text-slate-500">No WBES constraint observations are available for this sector.</p>}
+      </article>
+
+      <article className="panel-card">
+        <p className="section-eyebrow">World Bank Enterprise Surveys · Kenya 2025</p>
+        <h3 className="section-title">Competition indicators</h3>
+        <p className="mt-1 text-xs text-slate-400">Firm-reported competition context, not a count of competitors in the proposed location.</p>
+        <div className="mt-5 grid gap-3 md:grid-cols-2">
+          {competition.map((item) => <EvidenceIndicatorCard key={item.indicator} item={item} />)}
+        </div>
+        {competition.length === 0 && <p className="mt-4 text-sm text-slate-500">No WBES competition observations are available for this sector.</p>}
       </article>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <article className="panel-card">
-          <p className="section-eyebrow">Market demand</p>
-          <h3 className="section-title">Demand is not directly measured yet</h3>
-          <p className="mt-2 text-sm leading-6 text-slate-500">These datasets do not measure customer demand for your specific idea or Nairobi location. Validate demand with local customer research; SAKI AI does not infer demand from business counts.</p>
+          <p className="section-eyebrow">KNBS · Demand-related historical context</p>
+          <h3 className="section-title">Observed sector business activity</h3>
+          <p className="mt-1 text-xs text-slate-400">Nairobi MSME Survey 2016 · {benchmark.n_establishments} eligible establishments</p>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <BenchmarkValue label="Median monthly revenue" value={money(benchmark.median_monthly_revenue_ksh)} />
+            <BenchmarkValue label="Businesses in high revenue tier" value={`${benchmark.pct_high}%`} />
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-500">Historical sector activity is a demand-related indicator, not direct customer demand or a forecast of this idea’s sales.</p>
         </article>
+        <article className="panel-card">
+          <p className="section-eyebrow">KNBS · Resource planning context</p>
+          <h3 className="section-title">Compare with historical sector medians</h3>
+          {idea ? (
+            <div className="mt-4 grid gap-3">
+              <BenchmarkValue label="Your proposed startup capital" value={money(idea.initialCapitalKsh)} />
+              <BenchmarkValue label="Sector median startup capital" value={money(benchmark.median_initial_capital_ksh)} />
+              <BenchmarkValue label="Your planned founding employees" value={idea.foundingEmployees.toLocaleString()} />
+              <BenchmarkValue label="Sector median founding employees" value={benchmark.median_founding_employees.toLocaleString()} />
+            </div>
+          ) : <p className="mt-3 text-sm text-slate-500">Business profile details are unavailable for this comparison.</p>}
+          <p className="mt-4 text-xs leading-5 text-slate-500">These are descriptive reference values, not recommended budgets or staffing levels.</p>
+        </article>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-2">
         <article className="panel-card">
           <p className="section-eyebrow">Interpretation notes</p>
           <ul className="mt-3 space-y-2">
@@ -529,6 +550,22 @@ function AnalysisPanel({ analysis, ideaName }: { analysis: Analysis; ideaName: s
           </ul>
         </article>
       </div>
+    </div>
+  )
+}
+
+function EvidenceIndicatorCard({ item }: { item: ConstraintIndicator }) {
+  return (
+    <div className="rounded-xl border border-slate-200 p-4">
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-sm font-semibold leading-5 text-slate-700">{item.indicator.replace(/^(Obstacle: |Competition: )/, '')}</p>
+        <span className="shrink-0 text-sm font-bold text-[#456b45]">{item.risk_share == null ? '—' : `${item.risk_share}%`}</span>
+      </div>
+      {item.risk_share != null && <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-[#9bb873]" style={{ width: `${Math.min(item.risk_share, 100)}%` }} /></div>}
+      <p className="mt-2 text-[11px] text-slate-400">
+        {item.status === 'fallback' ? `Fallback: ${item.source_scope}, ${item.source_sector}` : item.status}
+        {item.moe_pp != null ? ` · ±${item.moe_pp} pp` : ''}
+      </p>
     </div>
   )
 }
