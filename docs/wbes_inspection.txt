@@ -1,0 +1,200 @@
+Rows: 1,024   Columns: 336
+
+=== a2: Sampling Region ===
+  4:  -> 275
+  6:  -> 163
+  1:  -> 153
+  5:  -> 146
+  2:  -> 145
+  3:  -> 142
+
+=== a3a: Region of The Establishment ===
+  4:  -> 281
+  6:  -> 162
+  1:  -> 157
+  5:  -> 144
+  2:  -> 144
+  3:  -> 136
+
+=== a4a: Industry Sampling Sector ===
+  7:  -> 176
+  4:  -> 159
+  5:  -> 158
+  6:  -> 154
+  3:  -> 149
+  1:  -> 130
+  2:  -> 98
+
+=== Weight columns ===
+  wmedian: Weight according to median eligibility  (missing: 0)
+  wweak: Weight according to weak eligibility  (missing: 0)
+
+--- 'obstacle': 18 columns ---
+k30          valid= 1024  How Much of An Obstacle: Access To Finance
+g30a         valid= 1024  How Much of An Obstacle: Access To Land?
+j30c         valid= 1024  How Much of An Obstacle: Business Licensing And Permits
+j30f         valid= 1024  How Much of An Obstacle: Corruption
+h30          valid= 1024  How Much of An Obstacle: Courts
+i30          valid= 1024  How Much of An Obstacle: Crime, Theft And Disorder?
+d30b         valid= 1024  How Much of An Obstacle: Customs And Trade Regulations?
+c30a         valid= 1024  How Much of An Obstacle: Electricity To Operations of This Establishment?
+l30b         valid= 1024  How Much of An Obstacle: Inadequately Educated Workforce?
+l30a         valid= 1024  How Much of An Obstacle: Labor Regulations?
+j30e         valid= 1024  How Much of An Obstacle: Political Instability
+e30          valid= 1024  How Much of An Obstacle: Practices of Competitors In Informal Sector?
+j30b         valid= 1024  How Much of An Obstacle: Tax Administrations
+j30a         valid= 1024  How Much of An Obstacle: Tax Rates
+d30a         valid= 1024  How Much of An Obstacle: Transport?
+m1a          valid= 1024  Biggest Obstacle Affecting The Operation of This Establishment
+l30d         valid= 1024  How Much of An Obstacle: The regulation of dismissing workers?
+l30c         valid= 1024  How Much of An Obstacle: The cost of hiring new workers?
+
+--- 'constraint': 0 columns ---
+
+--- 'bribe': 0 columns ---
+
+--- 'informal': 14 columns ---
+c5           valid=   58  Informal Gift/Payment Expected or Requested For An Electrical Connection?
+c14          valid=   30  When You Applied For A Water Connection, Was An Informal Gift/Payment Requested?
+e11          valid= 1024  Does This Establishment Compete Against Unregistered or Informal Firms?
+g4           valid=  227  Informal Gift/Payment Expected or Requested For A Construction-Related Permit
+k3dgh        valid= 1024  % of Working Capital Financed By Friends, Relatives, Informal Money Lenders, Oth
+k5dgh        valid=  359  Last FY, % Fixed Assets Funded By: Friends\Relatives\Informal Money Lenders\Othe
+k5dgh1       valid=   15  Fixed Assets - Value Friends\Relatives\Informal Money Lenders\Other
+j5           valid=  651  In Any of These Inspections Was A Gift/Informal Payment Requested ?
+j7a          valid= 1006  Percent of Total Annual Sales Paid In Informal Payments
+j7b          valid=   18  Total Annual Informal Payment
+j12          valid=  207  When You Applied For An Import License, Was An Informal Gift/Payment Requested?
+j15          valid=  881  When You Applied For Operating License Was An Informal Gift/Payment Requested?
+e30          valid= 1024  How Much of An Obstacle: Practices of Competitors In Informal Sector?
+m1a_informal_pos valid= 1024  m1a: Position of Practices of competitors in the informal sector
+
+--- 'licen': 13 columns ---
+d42          valid=  125  When goods exported directly, was any inspection, certification, or licensing do
+d43a         valid=  122  Average duration to conduct inspections, certifications, and licensing: days
+d43b         valid=  122  Average duration to conduct inspections, certifications, and licensing: hours
+d44          valid=  247  Inspection, certification or licensing prior to point of entry
+e6           valid= 1024  Do You Use Technology Licensed From A Foreign-Owned Company?
+j10          valid= 1024  Application To Obtain An Import License Submitted Over The Last 2 Years?
+j11          valid=  207  How Many Days Did It Take To Obtain Your Import License?
+j12          valid=  207  When You Applied For An Import License, Was An Informal Gift/Payment Requested?
+j13          valid= 1024  Application To Obtain An Operating License Submitted Over Last 2 Years?
+j14          valid=  881  How Many Days Did It Take To Obtain Your Operating License?
+j15          valid=  881  When You Applied For Operating License Was An Informal Gift/Payment Requested?
+j30c         valid= 1024  How Much of An Obstacle: Business Licensing And Permits
+m1a_permit_pos valid= 1024  m1a: Position of Business licensing and permits
+
+--- 'permit': 5 columns ---
+g2           valid= 1024  Applic. To Obtain A Construction-Related Permit Submitted Over The Last 2 Years
+g3           valid=  227  How Many Days Did It Take For You To Obtain A Construction-Related Permit?
+g4           valid=  227  Informal Gift/Payment Expected or Requested For A Construction-Related Permit
+j30c         valid= 1024  How Much of An Obstacle: Business Licensing And Permits
+m1a_permit_pos valid= 1024  m1a: Position of Business licensing and permits
+
+--- 'tax': 13 columns ---
+j3           valid= 1024  Over The Last 12 Months, Was This Establishment Inspected By Tax officials?
+j4           valid=  651  Frequency of Inspections/Requirement For Meeting By Tax officials
+j32          valid=  651  Did any of these visits or meetings consist of a tax audit?
+j35          valid= 1024  Total Hours to Prepare, File and Pay Taxes
+j36          valid= 1024  In last FY, did establishment file taxes electronically
+j37          valid= 1024  In last FY, did establishment pay taxes electronically
+j40          valid=  800  Main reason for not applying for a VAT tax refund
+j30b         valid= 1024  How Much of An Obstacle: Tax Administrations
+j30a         valid= 1024  How Much of An Obstacle: Tax Rates
+m1a_taxadmin_pos valid= 1024  m1a: Position of Tax administration
+m1a_taxrate_pos valid= 1024  m1a: Position of Tax rates
+n2a2         valid= 1022  Social security payments and employment-based taxes
+n11          valid= 1024  Effective income-based tax rate
+
+--- 'electric': 10 columns ---
+c3           valid= 1024  Application To Obtain An Electrical Connection Submitted Over The Last 2 Years
+c4           valid=   58  How Many Days Did It Take For You To Receive An Electrical Connection Service?
+c5           valid=   58  Informal Gift/Payment Expected or Requested For An Electrical Connection?
+c31          valid=   58  Cost to obtain electrical connection
+c11          valid=  644  % Electricity From Generator Owned/Shared By The Establishment In Last FY
+c44          valid=  158  Percentage of electricity from solar panels
+c30a         valid= 1024  How Much of An Obstacle: Electricity To Operations of This Establishment?
+m1a_electricity_pos valid= 1024  m1a: Position  of Electricity
+c32          valid= 1024  Electricity consumption in a typical month (kWh)
+c32b         valid= 1018  Cost of monthly electricity consumption
+
+--- 'crime': 2 columns ---
+i30          valid= 1024  How Much of An Obstacle: Crime, Theft And Disorder?
+m1a_crime_pos valid= 1024  m1a: Position of Crime, theft and disorder
+
+--- 'theft': 2 columns ---
+i30          valid= 1024  How Much of An Obstacle: Crime, Theft And Disorder?
+m1a_crime_pos valid= 1024  m1a: Position of Crime, theft and disorder
+
+--- 'competi': 5 columns ---
+e2b          valid=  969  Competitors For The Main Product/Service In The Main Market
+e32          valid= 1024  Change in competition in the last year?
+e33          valid= 1024  Establishment can increase prices more than competitors without losing customers
+e30          valid= 1024  How Much of An Obstacle: Practices of Competitors In Informal Sector?
+m1a_informal_pos valid= 1024  m1a: Position of Practices of competitors in the informal sector
+
+--- 'land': 5 columns ---
+g34          valid= 1024  Land disputes and the sale of property: Deeds, Title certificates etc recognized
+n5b          valid=  374  Total Annual Expenditure For Purchases of Land And Buildings In Last FY
+k14a         valid=  403  Type of Collateral Required For The Most Recent Loan? Land, Buildings
+g30a         valid= 1024  How Much of An Obstacle: Access To Land?
+m1a_land_pos valid= 1024  m1a: Position of Access to land
+
+--- 'trade': 2 columns ---
+d30b         valid= 1024  How Much of An Obstacle: Customs And Trade Regulations?
+m1a_trade_pos valid= 1024  m1a: Position of Customs and trade regulations
+
+--- 'customs': 8 columns ---
+d4a          valid=  125  In Last FY, Avg. Num. of Days For Exported Goods To Clear Customs?
+d4b          valid=  125  If less than a day, total hours for exported goods to clear customs
+d45a         valid=  237  Average duration to clear customs: Days
+d45b         valid=  237  Average duration to clear customs: Hours
+d14a         valid=  247  Avg. Num. of Days For Imported Goods To Clear Customs In Last Fiscal Year
+d14b         valid=  247  If less than a day, total hours for imported goods to clear customs
+d30b         valid= 1024  How Much of An Obstacle: Customs And Trade Regulations?
+m1a_trade_pos valid= 1024  m1a: Position of Customs and trade regulations
+
+--- 'corrupt': 2 columns ---
+j30f         valid= 1024  How Much of An Obstacle: Corruption
+m1a_corruption_pos valid= 1024  m1a: Position of corruption
+
+--- 'finance': 7 columns ---
+k3a          valid= 1024  % of Working Capital Financed From Internal Funds/Retained Earnings
+k3i          valid= 1024  % of Working Capital Financed From Ownersâ Contributions or Issued New Equity
+k3j          valid= 1024  % of Working Capital Financed From Bonds
+k3dgh        valid= 1024  % of Working Capital Financed By Friends, Relatives, Informal Money Lenders, Oth
+k15d         valid= 1024  Outstanding Personal Loans Used To Finance Establishment'S Business Activities?
+k30          valid= 1024  How Much of An Obstacle: Access To Finance
+m1a_finance_pos valid= 1024  m1a: Position of Access to Finance
+
+--- 'access to': 4 columns ---
+k30          valid= 1024  How Much of An Obstacle: Access To Finance
+g30a         valid= 1024  How Much of An Obstacle: Access To Land?
+m1a_finance_pos valid= 1024  m1a: Position of Access to Finance
+m1a_land_pos valid= 1024  m1a: Position of Access to land
+
+--- 'political': 2 columns ---
+j30e         valid= 1024  How Much of An Obstacle: Political Instability
+m1a_instability_pos valid= 1024  m1a: Position of Political instability
+
+--- 'workforce': 2 columns ---
+l30b         valid= 1024  How Much of An Obstacle: Inadequately Educated Workforce?
+m1a_workforce_pos valid= 1024  m1a: Position of Inadequately educated workforce
+
+--- 'sector': 5 columns ---
+a4a          valid= 1024  Industry Sampling Sector
+b7           valid= 1024  How Many Years of Experience Working In This Sector Does The Top Manager Have?
+e30          valid= 1024  How Much of An Obstacle: Practices of Competitors In Informal Sector?
+m1a_informal_pos valid= 1024  m1a: Position of Practices of competitors in the informal sector
+stratificationsectorcode valid= 1024  stratificationsectorcode
+
+--- 'industry': 1 columns ---
+a4a          valid= 1024  Industry Sampling Sector
+
+=== Sector and sampling columns ===
+  a4a: Industry Sampling Sector  (valid: 1024)
+  a6a: Sampling Size  (valid: 1024)
+  a2: Sampling Region  (valid: 1024)
+  panel: Panel Code  (valid: 1024)
+  d1a2_v4: Main Product/Service ISIC (Rev. 4) Code  (valid: 1024)
+  strata: see notes  (valid: 1024)
