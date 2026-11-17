@@ -1,0 +1,96 @@
+=== Rule tiers (share of firms at risk) ===
+[(50, 'High'), (30, 'Elevated'), (15, 'Moderate'), (0, 'Low')]
+
+=== All sectors: risk share and level ===
+                                                                           risk_share             level          
+scope                                                                           Kenya Nairobi     Kenya   Nairobi
+indicator                                                                                                        
+Competition increased in the last year                                           84.0    82.6      High      High
+Cannot raise prices without losing customers                                     79.6    81.5      High      High
+Obstacle: Tax rates                                                              64.3    63.7      High      High
+Competes with unregistered or informal firms                                     54.1    52.1      High      High
+Obstacle: Practices of informal-sector competitors                               43.9    48.5  Elevated  Elevated
+Obstacle: Corruption                                                             40.8    45.5  Elevated  Elevated
+Obstacle: Political instability                                                  40.1    41.1  Elevated  Elevated
+Obstacle: Tax administration                                                     38.6    40.4  Elevated  Elevated
+Obstacle: Access to finance                                                      38.5    39.8  Elevated  Elevated
+Obstacle: Business licensing and permits                                         25.3    28.6  Moderate  Moderate
+Gift/payment requested during an inspection (among firms inspected)              25.2    19.0  Moderate  Moderate
+Obstacle: Customs and trade regulations                                          24.8    29.7  Moderate  Moderate
+Obstacle: Crime, theft and disorder                                              22.2    26.1  Moderate  Moderate
+Gift/payment requested for an operating licence (among firms that applied)       19.8    18.0  Moderate  Moderate
+Obstacle: Access to land                                                         18.0    23.1  Moderate  Moderate
+Obstacle: Electricity                                                            17.7    15.8  Moderate  Moderate
+Obstacle: Labour regulations                                                     17.2    20.7  Moderate  Moderate
+Obstacle: Transport                                                              16.6    19.7  Moderate  Moderate
+Obstacle: Courts                                                                 16.2    21.2  Moderate  Moderate
+Obstacle: Cost of hiring new workers                                             14.4    17.6       Low  Moderate
+Obstacle: Inadequately educated workforce                                        11.9    16.2       Low  Moderate
+Obstacle: Regulation of dismissing workers                                       11.9    15.5       Low  Moderate
+
+=== Nairobi vs Kenya (all sectors); beyond_margin = gap exceeds Nairobi 95% margin ===
+                                                                            kenya  nairobi  gap  nairobi_moe  beyond_margin
+indicator                                                                                                                  
+Gift/payment requested during an inspection (among firms inspected)          25.2     19.0 -6.2          8.3          False
+Competes with unregistered or informal firms                                 54.1     52.1 -2.0          7.8          False
+Obstacle: Electricity                                                        17.7     15.8 -1.9          5.7          False
+Gift/payment requested for an operating licence (among firms that applied)   19.8     18.0 -1.8          6.3          False
+Competition increased in the last year                                       84.0     82.6 -1.4          5.9          False
+Obstacle: Tax rates                                                          64.3     63.7 -0.6          7.5          False
+Obstacle: Political instability                                              40.1     41.1  1.0          7.6          False
+Obstacle: Access to finance                                                  38.5     39.8  1.3          7.6          False
+Obstacle: Tax administration                                                 38.6     40.4  1.8          7.6          False
+Cannot raise prices without losing customers                                 79.6     81.5  1.9          6.0          False
+Obstacle: Transport                                                          16.6     19.7  3.1          6.2          False
+Obstacle: Cost of hiring new workers                                         14.4     17.6  3.2          5.9          False
+Obstacle: Business licensing and permits                                     25.3     28.6  3.3          7.0          False
+Obstacle: Labour regulations                                                 17.2     20.7  3.5          6.3          False
+Obstacle: Regulation of dismissing workers                                   11.9     15.5  3.6          5.6          False
+Obstacle: Crime, theft and disorder                                          22.2     26.1  3.9          6.8          False
+Obstacle: Inadequately educated workforce                                    11.9     16.2  4.3          5.7          False
+Obstacle: Practices of informal-sector competitors                           43.9     48.5  4.6          7.8          False
+Obstacle: Corruption                                                         40.8     45.5  4.7          7.7          False
+Obstacle: Customs and trade regulations                                      24.8     29.7  4.9          7.2          False
+Obstacle: Courts                                                             16.2     21.2  5.0          6.3          False
+Obstacle: Access to land                                                     18.0     23.1  5.1          6.6          False
+
+=== Resolution status by requested scope and sector ===
+requested_scope  requested_sector               status      
+Kenya            All sectors                    direct          22
+                 Business & financial services  fallback        22
+                 Construction                   direct          22
+                 Education                      no WBES data    22
+                 Food & accommodation           direct          22
+                 Health                         no WBES data    22
+                 Manufacturing                  direct          22
+                 Other                          fallback        22
+                 Personal services              no WBES data    22
+                 Retail trade                   direct          22
+                 Transport & storage            fallback        22
+                 Wholesale & motor trade        direct          22
+Nairobi          All sectors                    direct          22
+                 Business & financial services  fallback        22
+                 Construction                   fallback        22
+                 Education                      no WBES data    22
+                 Food & accommodation           fallback        22
+                 Health                         no WBES data    22
+                 Manufacturing                  fallback        22
+                 Other                          fallback        22
+                 Personal services              no WBES data    22
+                 Retail trade                   fallback        22
+                 Transport & storage            fallback        22
+                 Wholesale & motor trade        direct          21
+                                                fallback         1
+
+=== Effective sample sizes, Nairobi sector cells (obstacle rows) ===
+                               n_valid  n_eff
+sector_group                                 
+All sectors                        268  155.7
+Business & financial services       17   13.2
+Construction                        33   25.6
+Food & accommodation                17   14.3
+Manufacturing                       87   23.6
+Other                                2    2.0
+Retail trade                        38   28.0
+Transport & storage                 14   12.1
+Wholesale & motor trade             58   41.4

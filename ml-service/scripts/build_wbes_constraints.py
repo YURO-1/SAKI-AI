@@ -11,7 +11,7 @@ RAW = ROOT / "data" / "raw" / "wbes_kenya_2025.dta"
 OUT = ROOT / "data" / "processed" / "wbes_constraints.csv"
 REPORT = ROOT / "docs" / "wbes_constraints_report.txt"
 NAIROBI = 4   # a2 code for Nairobi
-MIN_N = 30    # cells smaller than this are flagged unreliable
+MIN_N = 30    # cells with an effective sample below this are flagged unreliable
 
 # Folders must exist before the report file is opened
 OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -52,8 +52,8 @@ INDICATORS += [
     ("e11", "Competes with unregistered or informal firms", "competition", {1, 2}, {1}),
     ("e32", "Competition increased in the last year", "competition", {1, 2, 3}, {1}),
     ("e33", "Can raise prices without losing customers", "competition", {1, 2}, {1}),
-    ("j5", "Gift/payment requested during an inspection", "bribery", {1, 2}, {1}),
-    ("j15", "Gift/payment requested for an operating licence", "bribery", {1, 2}, {1}),
+    ("j5", "Gift/payment requested during an inspection (among firms inspected)", "bribery", {1, 2}, {1}),
+    ("j15", "Gift/payment requested for an operating licence (among firms that applied)", "bribery", {1, 2}, {1}),
 ]
 
 scopes = {"Kenya": df, "Nairobi": df[df["a2"] == NAIROBI]}
@@ -63,18 +63,22 @@ for scope, d in scopes.items():
     for sector, g in groups:
         for col, label, family, valid, pos in INDICATORS:
             s = pd.to_numeric(g[col], errors="coerce")
-            ok = s.isin(valid)          # -7 / -9 / blank are dropped here
+            ok = s.isin(valid)          # -9 / -8 / -7 / -6 / blank are dropped here
             n = int(ok.sum())
             if n == 0:
                 continue
             w = g.loc[ok, "wmedian"]
             hit = s[ok].isin(pos)
+            p = float((w * hit).sum() / w.sum())
+            n_eff = float(w.sum() ** 2 / (w ** 2).sum())    # Kish effective sample size
+            moe = 1.96 * (p * (1 - p) / n_eff) ** 0.5 * 100  # 95% margin, percentage points
             rows.append({
                 "scope": scope, "sector_group": sector, "indicator": label,
                 "family": family, "source_column": col,
-                "pct_weighted": round(float((w * hit).sum() / w.sum() * 100), 1),
+                "pct_weighted": round(p * 100, 1),
                 "pct_unweighted": round(float(hit.mean() * 100), 1),
-                "n_valid": n, "reliable": int(n >= MIN_N),
+                "n_valid": n, "n_eff": round(n_eff, 1), "moe_pp": round(moe, 1),
+                "reliable": int(n_eff >= MIN_N),
             })
 
 res = pd.DataFrame(rows)
@@ -99,19 +103,21 @@ for c in CHECK:
         print("  Could not read labels:", e)
         print("  Raw codes:", df[c].value_counts(dropna=False).sort_index().to_dict())
 
-print("\n=== Columns starting with e31 (market structure?) ===")
-for c in df.columns:
-    if c.lower().startswith("e31"):
-        print(c, "|", labels.get(c, ""), "|",
-              df[c].value_counts(dropna=False).sort_index().to_dict())
+print("\n=== e312 main market: codes and labels ===")
+try:
+    lab = pd.read_stata(RAW, convert_categoricals=True, columns=["e312"])
+    pair = pd.DataFrame({"code": df["e312"], "label": lab["e312"].astype(str)})
+    print(pair.value_counts(dropna=False).sort_index().to_string())
+except Exception as e:
+    print("Could not read labels:", e)
 
-print("\n=== All sectors: weighted %, unweighted % and valid n (obstacle = major or very severe) ===")
+print("\n=== All sectors: weighted %, unweighted %, valid n, effective n, margin ===")
 a = res[res["sector_group"] == "All sectors"]
 tab = a.pivot_table(index=["family", "indicator"], columns="scope",
-                    values=["pct_weighted", "pct_unweighted", "n_valid"])
+                    values=["pct_weighted", "pct_unweighted", "n_valid", "n_eff", "moe_pp"])
 print(tab.to_string())
 
-print("\n=== Reliable obstacle cells per scope and sector (of 17) ===")
+print("\n=== Reliable obstacle cells per scope and sector (of 17, effective n >= 30) ===")
 ob = res[res["family"] == "obstacle"]
 print(ob.groupby(["scope", "sector_group"])["reliable"].sum().to_string())
 

@@ -66,53 +66,57 @@ code  label
  2.0  No                          664
  NaN  NaN                         143
 
-=== Columns starting with e31 (market structure?) ===
-e312 | Which Best Descibes Establishment's Main Market | {1.0: 15, 2.0: 153, 3.0: 801, nan: 55}
+=== e312 main market: codes and labels ===
+code  label                                 
+1.0   The market is dominated by one firm        15
+2.0   The market is dominated by a few firms    153
+3.0   There is competition among many firms     801
+NaN   NaN                                        55
 
-=== All sectors: weighted %, unweighted % and valid n (obstacle = major or very severe) ===
-                                                               n_valid         pct_unweighted         pct_weighted        
-scope                                                            Kenya Nairobi          Kenya Nairobi        Kenya Nairobi
-family      indicator                                                                                                     
-bribery     Gift/payment requested during an inspection          650.0   150.0           24.5    19.3         25.2    19.0
-            Gift/payment requested for an operating licence      873.0   246.0           23.9    19.1         19.8    18.0
-competition Can raise prices without losing customers           1012.0   272.0           23.6    22.1         20.4    18.5
-            Competes with unregistered or informal firms        1015.0   274.0           55.2    53.6         54.1    52.1
-            Competition increased in the last year              1023.0   275.0           82.7    80.0         84.0    82.6
-obstacle    Obstacle: Access to finance                         1024.0   275.0           35.2    35.3         38.5    39.8
-            Obstacle: Access to land                            1014.0   268.0           15.4    21.3         18.0    23.1
-            Obstacle: Business licensing and permits            1023.0   274.0           21.5    25.5         25.3    28.6
-            Obstacle: Corruption                                1022.0   273.0           39.2    42.1         40.8    45.5
-            Obstacle: Cost of hiring new workers                1021.0   273.0           14.8    17.2         14.4    17.6
-            Obstacle: Courts                                    1021.0   275.0           12.6    18.5         16.2    21.2
-            Obstacle: Crime, theft and disorder                 1023.0   275.0           19.4    23.3         22.2    26.1
-            Obstacle: Customs and trade regulations             1008.0   270.0           22.0    25.2         24.8    29.7
-            Obstacle: Electricity                               1024.0   275.0           23.1    18.9         17.7    15.8
-            Obstacle: Inadequately educated workforce           1024.0   275.0           10.1    14.2         11.9    16.2
-            Obstacle: Labour regulations                        1022.0   274.0           15.1    17.5         17.2    20.7
-            Obstacle: Political instability                     1022.0   275.0           41.3    40.4         40.1    41.1
-            Obstacle: Practices of informal-sector competitors  1024.0   275.0           42.3    45.5         43.9    48.5
-            Obstacle: Regulation of dismissing workers          1021.0   273.0           11.9    13.6         11.9    15.5
-            Obstacle: Tax administration                        1023.0   274.0           39.0    42.7         38.6    40.4
-            Obstacle: Tax rates                                 1022.0   273.0           68.6    67.4         64.3    63.7
-            Obstacle: Transport                                 1023.0   275.0           15.4    17.8         16.6    19.7
+=== All sectors: weighted %, unweighted %, valid n, effective n, margin ===
+                                                                                       moe_pp          n_eff         n_valid         pct_unweighted         pct_weighted        
+scope                                                                                   Kenya Nairobi  Kenya Nairobi   Kenya Nairobi          Kenya Nairobi        Kenya Nairobi
+family      indicator                                                                                                                                                           
+bribery     Gift/payment requested during an inspection (among firms inspected)           5.5     8.3  236.1    86.4   650.0   150.0           24.5    19.3         25.2    19.0
+            Gift/payment requested for an operating licence (among firms that applied)    4.4     6.3  314.5   144.9   873.0   246.0           23.9    19.1         19.8    18.0
+competition Can raise prices without losing customers                                     4.1     6.0  365.5   158.6  1012.0   272.0           23.6    22.1         20.4    18.5
+            Competes with unregistered or informal firms                                  5.1     7.8  366.7   159.6  1015.0   274.0           55.2    53.6         54.1    52.1
+            Competition increased in the last year                                        3.7     5.9  368.3   159.7  1023.0   275.0           82.7    80.0         84.0    82.6
+obstacle    Obstacle: Access to finance                                                   5.0     7.6  368.5   159.7  1024.0   275.0           35.2    35.3         38.5    39.8
+            Obstacle: Access to land                                                      3.9     6.6  364.1   156.4  1014.0   268.0           15.4    21.3         18.0    23.1
+            Obstacle: Business licensing and permits                                      4.4     7.0  367.6   158.7  1023.0   274.0           21.5    25.5         25.3    28.6
+            Obstacle: Corruption                                                          5.0     7.7  367.5   158.8  1022.0   273.0           39.2    42.1         40.8    45.5
+            Obstacle: Cost of hiring new workers                                          3.6     5.9  367.4   158.7  1021.0   273.0           14.8    17.2         14.4    17.6
+            Obstacle: Courts                                                              3.8     6.3  366.9   159.7  1021.0   275.0           12.6    18.5         16.2    21.2
+            Obstacle: Crime, theft and disorder                                           4.2     6.8  368.5   159.7  1023.0   275.0           19.4    23.3         22.2    26.1
+            Obstacle: Customs and trade regulations                                       4.5     7.2  358.7   155.7  1008.0   270.0           22.0    25.2         24.8    29.7
+            Obstacle: Electricity                                                         3.9     5.7  368.5   159.7  1024.0   275.0           23.1    18.9         17.7    15.8
+            Obstacle: Inadequately educated workforce                                     3.3     5.7  368.5   159.7  1024.0   275.0           10.1    14.2         11.9    16.2
+            Obstacle: Labour regulations                                                  3.9     6.3  367.5   158.8  1022.0   274.0           15.1    17.5         17.2    20.7
+            Obstacle: Political instability                                               5.0     7.6  367.7   159.7  1022.0   275.0           41.3    40.4         40.1    41.1
+            Obstacle: Practices of informal-sector competitors                            5.1     7.8  368.5   159.7  1024.0   275.0           42.3    45.5         43.9    48.5
+            Obstacle: Regulation of dismissing workers                                    3.3     5.6  367.2   158.6  1021.0   273.0           11.9    13.6         11.9    15.5
+            Obstacle: Tax administration                                                  5.0     7.6  367.5   158.8  1023.0   274.0           39.0    42.7         38.6    40.4
+            Obstacle: Tax rates                                                           4.9     7.5  366.6   158.0  1022.0   273.0           68.6    67.4         64.3    63.7
+            Obstacle: Transport                                                           3.8     6.2  368.0   159.7  1023.0   275.0           15.4    17.8         16.6    19.7
 
-=== Reliable obstacle cells per scope and sector (of 17) ===
+=== Reliable obstacle cells per scope and sector (of 17, effective n >= 30) ===
 scope    sector_group                 
 Kenya    All sectors                      17
-         Business & financial services    17
+         Business & financial services     0
          Construction                     17
          Food & accommodation             17
          Manufacturing                    17
          Other                             0
          Retail trade                     17
-         Transport & storage              17
+         Transport & storage               0
          Wholesale & motor trade          17
 Nairobi  All sectors                      17
          Business & financial services     0
-         Construction                     17
+         Construction                      0
          Food & accommodation              0
-         Manufacturing                    17
+         Manufacturing                     0
          Other                             0
-         Retail trade                     17
+         Retail trade                      0
          Transport & storage               0
          Wholesale & motor trade          17
