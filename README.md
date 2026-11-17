@@ -58,3 +58,14 @@ Key routes:
 - `GET|POST /api/ideas`, `GET|PUT|DELETE /api/ideas/{id}`
 - `POST|GET /api/ideas/{id}/analyses`
 - `GET /api/health`
+
+### Run the frontend
+In another PowerShell terminal:
+
+```powershell
+cd frontend
+npm install
+npm run dev -- --host 127.0.0.1
+```
+
+The frontend defaults to the Spring Boot API at `http://localhost:8080`. Override it with `VITE_API_URL` if needed.

@@ -289,7 +289,7 @@ function App() {
                 </label>
                 <label className="field-label">
                   Estimated startup capital (KSh)
-                  <input className="field-input" type="number" min="1" step="1000" required value={form.initialCapitalKsh} onChange={(event) => setForm({ ...form, initialCapitalKsh: Number(event.target.value) })} />
+                  <input className="field-input" type="number" min="1" step="1" required value={form.initialCapitalKsh} onChange={(event) => setForm({ ...form, initialCapitalKsh: Number(event.target.value) })} />
                 </label>
                 <label className="field-label">
                   Founding employees
@@ -552,7 +552,7 @@ function MetricCard({ label, value, note, accent }: { label: string; value: stri
     <article className="panel-card !p-5">
       <div className="flex items-start justify-between">
         <p className="text-sm font-medium text-slate-500">{label}</p>
-        <span className={`rounded-lg px-2 py-1 text-[10px] font-bold uppercase ${colors[accent]}`}>Live</span>
+        <span className={`rounded-lg px-2 py-1 text-[10px] font-bold uppercase ${colors[accent]}`}>Summary</span>
       </div>
       <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">{value}</p>
       <p className="mt-1 text-xs text-slate-500">{note}</p>
