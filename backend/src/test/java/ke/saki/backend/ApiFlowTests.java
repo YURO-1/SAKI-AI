@@ -3,14 +3,21 @@ package ke.saki.backend;
 import java.util.Map;
 import java.util.UUID;
 
+import ke.saki.backend.admin.ModelMetadataProvider;
+import ke.saki.backend.user.UserAccount;
+import ke.saki.backend.user.UserAccountRepository;
+import ke.saki.backend.user.UserRole;
 import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,6 +32,15 @@ class ApiFlowTests {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private UserAccountRepository users;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @MockitoBean
+    private ModelMetadataProvider modelMetadataProvider;
 
     @Test
     void registrationProtectsIdeasAndEnforcesOwnerIsolation() throws Exception {
@@ -54,6 +70,46 @@ class ApiFlowTests {
     @Test
     void protectedEndpointRejectsRequestsWithoutToken() throws Exception {
         mvc.perform(get("/api/ideas")).andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void regularUsersCannotAccessModelAdministration() throws Exception {
+        String email = "user-" + UUID.randomUUID() + "@example.test";
+        MvcResult registration = mvc.perform(post("/api/auth/register")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(
+                                Map.of("email", email, "password", "regular-password-123"))))
+                .andExpect(status().isOk())
+                .andReturn();
+        var response = objectMapper.readTree(registration.getResponse().getContentAsString());
+        assertThat(response.get("role").asText()).isEqualTo("USER");
+
+        mvc.perform(get("/api/admin/model")
+                        .header("Authorization", "Bearer " + response.get("accessToken").asText()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void administratorsCanViewCurrentModelMetadata() throws Exception {
+        String email = "admin-" + UUID.randomUUID() + "@example.test";
+        users.save(new UserAccount(email, passwordEncoder.encode("admin-password-123"), UserRole.ADMIN));
+        when(modelMetadataProvider.getCurrentModel())
+                .thenReturn(objectMapper.readTree("{\"version\":\"test-version\"}"));
+
+        MvcResult login = mvc.perform(post("/api/auth/login")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(
+                                Map.of("email", email, "password", "admin-password-123"))))
+                .andExpect(status().isOk())
+                .andReturn();
+        var response = objectMapper.readTree(login.getResponse().getContentAsString());
+        assertThat(response.get("role").asText()).isEqualTo("ADMIN");
+
+        mvc.perform(get("/api/admin/model")
+                        .header("Authorization", "Bearer " + response.get("accessToken").asText()))
+                .andExpect(status().isOk())
+                .andExpect(result -> assertThat(objectMapper.readTree(result.getResponse().getContentAsString())
+                        .get("version").asText()).isEqualTo("test-version"));
     }
 
     private String register(String email) throws Exception {

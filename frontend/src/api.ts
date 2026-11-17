@@ -60,10 +60,23 @@ export interface Analysis {
   }
 }
 
+export type UserRole = 'USER' | 'ADMIN'
+
+export interface ModelMetadata {
+  model_name: string
+  version: string
+  target: string
+  n_rows_total: number
+  test_accuracy: number
+  test_macro_f1: number
+  limitations: string
+}
+
 interface TokenResponse {
   accessToken: string
   tokenType: string
   expiresIn: number
+  role: UserRole
 }
 
 export class ApiError extends Error {
@@ -136,4 +149,7 @@ export const api = {
 
   listAnalyses: (token: string, id: string) =>
     request<Analysis[]>(`/api/ideas/${encodeURIComponent(id)}/analyses`, token),
+
+  currentModel: (token: string) =>
+    request<ModelMetadata>('/api/admin/model', token),
 }

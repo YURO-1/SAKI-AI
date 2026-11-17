@@ -19,8 +19,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ke.saki.backend.user.UserAccount;
 import ke.saki.backend.user.UserAccountRepository;
+import ke.saki.backend.user.UserRole;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
@@ -51,33 +53,40 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "An account with this email already exists.");
         }
         UserAccount user = users.save(new UserAccount(email, passwordEncoder.encode(credentials.password())));
-        return issueToken(user.getEmail());
+        return issueToken(user.getEmail(), user.getRole());
     }
 
     @PostMapping("/login")
     public TokenResponse login(@Valid @RequestBody Credentials credentials) {
         String email = credentials.email().trim().toLowerCase();
+        Authentication authentication;
         try {
-            authenticationManager.authenticate(
+            authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, credentials.password()));
         } catch (org.springframework.security.core.AuthenticationException exception) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password.");
         }
-        return issueToken(email);
+        UserRole role = authentication.getAuthorities().stream()
+                .map(authority -> authority.getAuthority())
+                .filter(authority -> authority.startsWith("ROLE_"))
+                .map(authority -> UserRole.valueOf(authority.substring("ROLE_".length())))
+                .findFirst()
+                .orElse(UserRole.USER);
+        return issueToken(email, role);
     }
 
-    private TokenResponse issueToken(String email) {
+    private TokenResponse issueToken(String email, UserRole role) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("saki-ai")
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(TOKEN_TTL_SECONDS))
                 .subject(email)
-                .claim("scope", "ROLE_USER")
+                .claim("scope", "ROLE_" + role.name())
                 .build();
         JwsHeader header = JwsHeader.with(MacAlgorithm.HS256).build();
         String token = jwtEncoder.encode(JwtEncoderParameters.from(header, claims)).getTokenValue();
-        return new TokenResponse(token, "Bearer", TOKEN_TTL_SECONDS);
+        return new TokenResponse(token, "Bearer", TOKEN_TTL_SECONDS, role.name());
     }
 
     public record Credentials(
@@ -85,6 +94,6 @@ public class AuthController {
             @NotBlank @Size(min = 12, max = 72) String password) {
     }
 
-    public record TokenResponse(String accessToken, String tokenType, long expiresIn) {
+    public record TokenResponse(String accessToken, String tokenType, long expiresIn, String role) {
     }
 }

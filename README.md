@@ -41,23 +41,26 @@ cd ml-service
 ```
 
 ### Run the backend locally
-Set the PostgreSQL connection values and a private JWT signing secret in the current PowerShell session, then start the API:
+Set the PostgreSQL connection values and a private JWT signing secret in the current PowerShell session, then start the API. The database defaults to `saki_ai`:
 
 ```powershell
-$env:DB_URL = "jdbc:postgresql://localhost:5432/saki"
+$env:DB_URL = "jdbc:postgresql://localhost:5432/saki_ai"
 $env:DB_USERNAME = "your-postgres-role"
 $env:DB_PASSWORD = "your-local-postgres-password"
 $env:SAKI_JWT_SECRET = "generate-a-private-secret-at-least-32-bytes-long"
 $env:ML_SERVICE_URL = "http://127.0.0.1:8000"
+$env:SAKI_ADMIN_EMAIL = "admin@example.test"
+$env:SAKI_ADMIN_PASSWORD = "use-a-private-password-of-at-least-12-characters"
 .\mvnw.cmd spring-boot:run
 ```
 
-Do not commit credentials or use the example JWT secret in a deployed environment. The ML service must be running for analyses to be generated.
+The administrator environment variables are optional, but must be set together. On startup, they create an `ADMIN` account only if that email does not exist; an existing regular account is never promoted automatically. Keep credentials and JWT secrets out of source control. The ML service must be running for analyses and administrator model metadata to be available.
 
 Key routes:
 - `POST /api/auth/register`, `POST /api/auth/login`
 - `GET|POST /api/ideas`, `GET|PUT|DELETE /api/ideas/{id}`
 - `POST|GET /api/ideas/{id}/analyses`
+- `GET /api/admin/model` (administrator only; proxies current model metadata)
 - `GET /api/health`
 
 ### Run the frontend

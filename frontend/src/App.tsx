@@ -6,6 +6,8 @@ import {
   type BusinessIdea,
   type BusinessIdeaInput,
   type ConstraintIndicator,
+  type ModelMetadata,
+  type UserRole,
 } from './api'
 
 const sectors = [
@@ -43,6 +45,7 @@ const initialIdea: BusinessIdeaInput = {
 
 function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('saki-token'))
+  const [role, setRole] = useState<UserRole>(() => sessionStorage.getItem('saki-role') === 'ADMIN' ? 'ADMIN' : 'USER')
   const [email, setEmail] = useState(() => sessionStorage.getItem('saki-email') ?? '')
   const [password, setPassword] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
@@ -50,6 +53,9 @@ function App() {
   const [form, setForm] = useState<BusinessIdeaInput>(initialIdea)
   const [activeAnalysis, setActiveAnalysis] = useState<Analysis | null>(null)
   const [activeIdeaId, setActiveIdeaId] = useState<string | null>(null)
+  const [modelMetadata, setModelMetadata] = useState<ModelMetadata | null>(null)
+  const [modelError, setModelError] = useState('')
+  const [modelLoading, setModelLoading] = useState(false)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -71,6 +77,32 @@ function App() {
     }
   }, [token])
 
+  useEffect(() => {
+    if (!token || role !== 'ADMIN') {
+      setModelMetadata(null)
+      setModelError('')
+      setModelLoading(false)
+      return
+    }
+
+    let cancelled = false
+    setModelLoading(true)
+    setModelError('')
+    api.currentModel(token)
+      .then((metadata) => {
+        if (!cancelled) setModelMetadata(metadata)
+      })
+      .catch((cause: unknown) => {
+        if (!cancelled) setModelError(messageFor(cause))
+      })
+      .finally(() => {
+        if (!cancelled) setModelLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [token, role])
+
   async function submitAuth(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setBusy(true)
@@ -81,8 +113,10 @@ function App() {
         : await api.login(email, password)
       sessionStorage.setItem('saki-token', response.accessToken)
       sessionStorage.setItem('saki-email', email.trim().toLowerCase())
+      sessionStorage.setItem('saki-role', response.role)
       setEmail(email.trim().toLowerCase())
       setToken(response.accessToken)
+      setRole(response.role)
       setPassword('')
     } catch (cause) {
       setError(messageFor(cause))
@@ -94,7 +128,9 @@ function App() {
   function signOut() {
     sessionStorage.removeItem('saki-token')
     sessionStorage.removeItem('saki-email')
+    sessionStorage.removeItem('saki-role')
     setToken(null)
+    setRole('USER')
     setEmail('')
     setIdeas([])
     setActiveAnalysis(null)
@@ -203,6 +239,7 @@ function App() {
           <a className="nav-link nav-link-active" href="#overview"><span>01</span> Overview</a>
           <a className="nav-link" href="#ideas"><span>02</span> My opportunities</a>
           <a className="nav-link" href="#assessment"><span>03</span> Assessments</a>
+          {role === 'ADMIN' && <a className="nav-link" href="#admin-model"><span>04</span> Model metadata</a>}
           <div className="mt-auto rounded-2xl bg-[#f2f6ec] p-4">
             <div className="mb-2 flex items-center gap-2 text-sm font-bold text-[#264b3e]">
               <span className="h-2 w-2 rounded-full bg-[#82a849]" />
@@ -367,6 +404,35 @@ function App() {
               </div>
             )}
           </section>
+          {role === 'ADMIN' && (
+            <section id="admin-model" className="panel-card mt-6" aria-labelledby="admin-model-heading">
+              <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+                <div>
+                  <p className="section-eyebrow">Administrator / Model oversight</p>
+                  <h2 id="admin-model-heading" className="section-title">Current model metadata</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">This reports the deployed model and its evaluation results. Only one evaluated model is currently available; this page does not switch or activate versions.</p>
+                </div>
+                {modelMetadata && <span className="w-fit rounded-full bg-[#eaf2df] px-3 py-1.5 text-xs font-semibold text-[#4f703e]">Version {modelMetadata.version}</span>}
+              </div>
+              {modelLoading && <p className="mt-5 text-sm text-slate-500">Loading model metadata…</p>}
+              {modelError && <p role="alert" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{modelError}</p>}
+              {modelMetadata && (
+                <>
+                  <dl className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    <MetadataValue label="Model" value={modelMetadata.model_name} />
+                    <MetadataValue label="Training records" value={modelMetadata.n_rows_total.toLocaleString()} />
+                    <MetadataValue label="Held-out test accuracy" value={`${(modelMetadata.test_accuracy * 100).toFixed(1)}%`} />
+                    <MetadataValue label="Held-out macro-F1" value={`${(modelMetadata.test_macro_f1 * 100).toFixed(1)}%`} />
+                  </dl>
+                  <div className="mt-4 rounded-xl bg-[#f7f8f5] p-4">
+                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Prediction target</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-700">{modelMetadata.target}</p>
+                    <p className="mt-3 text-xs leading-5 text-slate-500">{modelMetadata.limitations}</p>
+                  </div>
+                </>
+              )}
+            </section>
+          )}
           <footer className="mt-8 border-t border-slate-200 py-5 text-xs leading-5 text-slate-500">
             SAKI AI provides decision support, not guarantees. Results reflect historical survey data and should be considered alongside local research.
           </footer>
@@ -594,6 +660,15 @@ function MetricCard({ label, value, note, accent }: { label: string; value: stri
       <p className="mt-3 text-2xl font-bold tracking-tight text-slate-900">{value}</p>
       <p className="mt-1 text-xs text-slate-500">{note}</p>
     </article>
+  )
+}
+
+function MetadataValue({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-slate-200 p-4">
+      <dt className="text-xs font-medium text-slate-500">{label}</dt>
+      <dd className="mt-1 text-lg font-bold text-slate-800">{value}</dd>
+    </div>
   )
 }
 
