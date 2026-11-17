@@ -11,7 +11,9 @@ IN = ROOT / "data" / "processed" / "wbes_rules.csv"
 OUT = ROOT / "data" / "processed" / "wbes_app.json"
 TOP_N = 5
 # Replace with the exact citation wording from the WBES download page
-SOURCE = "World Bank Enterprise Surveys, Kenya 2025"
+SOURCE = ("The World Bank Group. Republic of Kenya - World Bank Enterprise Survey (WBES) 2025, "
+          "Ref. KEN_2025_WBES_v01_M. Dataset downloaded from "
+          "https://www.enterprisesurveys.org/en/data on [11/17/2026].")
 
 df = pd.read_csv(IN).astype(object)
 df = df.where(pd.notna(df), None)
