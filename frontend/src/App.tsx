@@ -49,6 +49,7 @@ function App() {
   const [email, setEmail] = useState(() => sessionStorage.getItem('saki-email') ?? '')
   const [password, setPassword] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
+  const [authOpen, setAuthOpen] = useState(false)
   const [ideas, setIdeas] = useState<BusinessIdea[]>([])
   const [form, setForm] = useState<BusinessIdeaInput>(initialIdea)
   const [activeAnalysis, setActiveAnalysis] = useState<Analysis | null>(null)
@@ -109,6 +110,7 @@ function App() {
       setModelMetadata(null)
       setModelError('')
       setPassword('')
+      setAuthOpen(false)
     } catch (cause) {
       setError(messageFor(cause))
     } finally {
@@ -199,29 +201,41 @@ function App() {
     }
   }
 
+  function openAuth(registering: boolean) {
+    setIsRegistering(registering)
+    setError('')
+    setAuthOpen(true)
+  }
+
   if (!token) {
     return (
-      <AuthScreen
-        email={email}
-        password={password}
-        isRegistering={isRegistering}
-        busy={busy}
-        error={error}
-        onEmailChange={setEmail}
-        onPasswordChange={setPassword}
-        onRegisterToggle={() => {
-          setIsRegistering((current) => !current)
-          setError('')
-        }}
-        onSubmit={submitAuth}
-      />
+      <>
+        <LandingPage onSignIn={() => openAuth(false)} onRegister={() => openAuth(true)} />
+        {authOpen && (
+          <AuthScreen
+            email={email}
+            password={password}
+            isRegistering={isRegistering}
+            busy={busy}
+            error={error}
+            onEmailChange={setEmail}
+            onPasswordChange={setPassword}
+            onRegisterToggle={() => {
+              setIsRegistering((current) => !current)
+              setError('')
+            }}
+            onClose={() => setAuthOpen(false)}
+            onSubmit={submitAuth}
+          />
+        )}
+      </>
     )
   }
 
   const activeIdea = ideas.find((idea) => idea.id === activeIdeaId)
 
   return (
-    <div className="min-h-screen bg-[#f5f7f3] text-slate-900">
+    <div className="min-h-screen bg-[#f0f3e9] text-slate-900">
       <div className="mx-auto flex min-h-screen max-w-[1600px]">
         <aside className="hidden w-[250px] shrink-0 flex-col border-r border-slate-200 bg-white px-5 py-7 lg:flex">
           <a className="mb-12 flex items-center gap-3" href="#overview" aria-label="SAKI AI home">
@@ -435,6 +449,222 @@ function App() {
   )
 }
 
+type BusinessPhoto = {
+  category: 'Food & produce' | 'Market & crafts'
+  image: string
+  alt: string
+  title: string
+  location: string
+  author: string
+  sourceUrl: string
+  license: string
+  licenseUrl: string
+}
+
+const businessPhotos: BusinessPhoto[] = [
+  {
+    category: 'Food & produce',
+    image: '/images/nairobi-produce-stall.jpg',
+    alt: 'A Nairobi-area fruit and vegetable stall stocked with fresh produce',
+    title: 'Fresh produce stall',
+    location: 'Nairobi outskirts',
+    author: 'Terryngari',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:A_vegetable_stall_in_the_outskirts_of_Nairobi,_Kenya._Showcasing_a_variety_of_fruits.jpg',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    category: 'Market & crafts',
+    image: '/images/nairobi-market-stand.jpg',
+    alt: 'A Nairobi Maasai market stall selling crafts and clothing',
+    title: 'Maasai market stall',
+    location: 'Nairobi',
+    author: 'Sdkb',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Nairobi_Maasai_Market_stand.jpg',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    category: 'Market & crafts',
+    image: '/images/village-market-crafts.jpg',
+    alt: 'Clothing, accessories, and craft stalls at Village Market in Nairobi',
+    title: 'Local crafts and textiles',
+    location: 'Village Market, Nairobi',
+    author: 'BugWarp',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Maasai_Markets_at_the_The_Village_Market_-_BugWarp_01.jpg',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+  },
+]
+
+function LandingPage({ onSignIn, onRegister }: { onSignIn: () => void; onRegister: () => void }) {
+  const [category, setCategory] = useState<'All businesses' | BusinessPhoto['category']>('All businesses')
+  const visiblePhotos = category === 'All businesses'
+    ? businessPhotos
+    : businessPhotos.filter((photo) => photo.category === category)
+
+  return (
+    <main id="top" className="min-h-screen bg-[#f7f4e9] text-slate-900">
+      <header className="sticky top-0 z-20 border-b border-[#e6e8dc] bg-[#f7f4e9]/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
+          <a className="flex shrink-0 items-center gap-3" href="#top" aria-label="SAKI AI home">
+            <BrandMark />
+            <span className="text-lg font-extrabold tracking-tight text-[#18372e]">SAKI<span className="text-[#80a944]"> AI</span></span>
+          </a>
+          <nav aria-label="Main navigation" className="hidden items-center gap-7 text-sm font-medium text-slate-600 md:flex">
+            <a className="transition hover:text-[#19392f]" href="#evidence">Our evidence</a>
+            <a className="transition hover:text-[#19392f]" href="#businesses">Nairobi businesses</a>
+            <a className="transition hover:text-[#19392f]" href="#how-it-works">How it works</a>
+          </nav>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button className="rounded-xl px-3 py-2 text-sm font-bold text-[#264b3e] transition hover:bg-[#eaf0e2]" onClick={onSignIn}>Sign in</button>
+            <button className="button-primary !min-h-10 !px-4 !py-2 text-xs sm:text-sm" onClick={onRegister}>Get started</button>
+          </div>
+        </div>
+      </header>
+
+      <section className="overflow-hidden bg-[#e9f0e2]">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1fr_0.95fr] lg:gap-16 lg:py-24">
+          <div className="relative z-10">
+            <p className="mb-5 flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.18em] text-[#6e8d4a]">
+              <span className="h-2 w-2 rounded-full bg-[#82a849]" />
+              Built around Nairobi enterprise data
+            </p>
+            <h1 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-[#18372e] sm:text-5xl lg:text-6xl">
+              See your business idea in its local context.
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#56665d] sm:text-lg sm:leading-8">
+              SAKI AI helps you compare a business idea with Nairobi enterprise benchmarks and the operating constraints firms report in Kenya.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button className="button-primary !px-6 !py-3" onClick={onRegister}>Explore your idea <span aria-hidden="true" className="ml-2">→</span></button>
+              <a className="button-secondary !min-h-[45px] !px-5 !py-3 text-sm" href="#evidence">See the evidence</a>
+            </div>
+            <p className="mt-6 text-xs leading-5 text-slate-500">Decision support for planning—not a promise of demand, profit, or business success.</p>
+          </div>
+
+          <div className="relative mx-auto h-[390px] w-full max-w-xl sm:h-[480px]" aria-label="Photos of Nairobi market businesses">
+            <div className="absolute inset-y-4 right-0 w-[78%] overflow-hidden rounded-[28px] shadow-xl shadow-[#293c2e]/15">
+              <img className="h-full w-full object-cover object-center" src="/images/nairobi-produce-stall.jpg" alt="Fruit and vegetable stall in the Nairobi area" fetchPriority="high" />
+            </div>
+            <div className="absolute bottom-0 left-0 h-48 w-[48%] overflow-hidden rounded-[22px] border-[6px] border-[#e9f0e2] shadow-lg sm:h-56">
+              <img className="h-full w-full object-cover object-center" src="/images/nairobi-market-stand.jpg" alt="Craft and clothing stall at a Nairobi market" />
+            </div>
+            <div className="absolute left-2 top-7 rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-lg sm:left-7">
+              <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#82975f]">Local enterprise</p>
+              <p className="mt-1 text-sm font-bold text-[#19392f]">Nairobi, Kenya</p>
+            </div>
+            <p className="absolute bottom-3 right-2 max-w-[46%] text-right text-[10px] leading-4 text-slate-600 sm:bottom-7 sm:right-3">
+              Illustrative market scenes · photo credits below
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="evidence" className="scroll-mt-24 bg-[#19392f] text-white">
+        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12">
+          <div className="grid gap-8 sm:grid-cols-2 sm:gap-12">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c5df9a]">The survey foundation</p>
+              <p className="mt-3 text-5xl font-semibold tracking-tight sm:text-6xl">1,546</p>
+              <p className="mt-2 text-sm leading-6 text-white/75">cleaned Nairobi establishment records in the KNBS MSME Survey 2016 dataset</p>
+            </div>
+            <div className="border-white/15 sm:border-l sm:pl-12">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c5df9a]">The model sample</p>
+              <p className="mt-3 text-5xl font-semibold tracking-tight sm:text-6xl">973</p>
+              <p className="mt-2 text-sm leading-6 text-white/75">records used to train the historical revenue-tier model after eligibility checks</p>
+            </div>
+          </div>
+          <p className="mt-8 border-t border-white/15 pt-5 text-xs leading-5 text-white/55">
+            These are survey and training-record counts—not today’s active business count or a count of SAKI AI user assessments. The revenue model estimates historical revenue tiers; it does not predict business success.
+          </p>
+        </div>
+      </section>
+
+      <section id="businesses" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <p className="section-eyebrow">From the streets and markets</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#18372e] sm:text-4xl">Local businesses. Local context.</h2>
+            <p className="mt-4 text-sm leading-6 text-slate-600 sm:text-base">
+              A glimpse of the independent trade and market activity behind Nairobi’s enterprise landscape.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2" aria-label="Filter business photos">
+            {(['All businesses', 'Food & produce', 'Market & crafts'] as const).map((filter) => (
+              <button
+                key={filter}
+                aria-pressed={category === filter}
+                className={`rounded-full border px-4 py-2 text-xs font-bold transition ${
+                  category === filter
+                    ? 'border-[#19392f] bg-[#19392f] text-white'
+                    : 'border-[#dfe5da] bg-white text-slate-600 hover:border-[#9cac8d] hover:text-[#19392f]'
+                }`}
+                onClick={() => setCategory(filter)}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {visiblePhotos.map((photo) => (
+            <figure key={photo.image} className="overflow-hidden rounded-[22px] border border-[#e5e9e1] bg-white shadow-sm">
+              <img className="h-64 w-full object-cover" src={photo.image} alt={photo.alt} loading="lazy" />
+              <figcaption className="p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#82975f]">{photo.category}</p>
+                <h3 className="mt-2 text-lg font-bold text-[#19392f]">{photo.title}</h3>
+                <p className="mt-1 text-xs text-slate-500">{photo.location}</p>
+                <p className="mt-4 border-t border-slate-100 pt-3 text-[11px] leading-5 text-slate-500">
+                  Photo by <a className="font-semibold text-[#416849] underline underline-offset-2" href={photo.sourceUrl} target="_blank" rel="noreferrer">{photo.author}</a>
+                  {' · '}
+                  <a className="font-semibold text-[#416849] underline underline-offset-2" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a>
+                </p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section id="how-it-works" className="scroll-mt-24 bg-[#edf1e7]">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="max-w-2xl">
+            <p className="section-eyebrow">A clearer starting point</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#18372e] sm:text-4xl">Turn a rough idea into a grounded comparison.</h2>
+          </div>
+          <div className="mt-9 grid gap-4 md:grid-cols-3">
+            {[
+              { number: '01', title: 'Describe your idea', text: 'Choose a business sector, Nairobi area, premises type, and basic startup details.' },
+              { number: '02', title: 'Review historical context', text: 'See revenue-tier estimates and sector benchmarks based on the KNBS Nairobi MSME Survey.' },
+              { number: '03', title: 'Consider reported constraints', text: 'Review operating challenges and competition indicators from World Bank Enterprise Surveys.' },
+            ].map((step) => (
+              <article key={step.number} className="rounded-[20px] border border-[#e0e6dc] bg-white p-6">
+                <p className="text-xs font-extrabold tracking-[0.12em] text-[#82975f]">{step.number}</p>
+                <h3 className="mt-4 text-lg font-bold text-[#19392f]">{step.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{step.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col justify-between gap-5 rounded-[22px] bg-[#19392f] p-6 text-white sm:flex-row sm:items-center sm:p-8">
+            <div>
+              <h3 className="text-xl font-bold">Start exploring your business idea.</h3>
+              <p className="mt-2 text-sm text-white/65">Create a workspace to save ideas and review assessments.</p>
+            </div>
+            <button className="button-primary w-fit !bg-[#c4e394] !px-5 !py-3 !text-[#1b352d] hover:!bg-[#d2efa2]" onClick={onRegister}>Create your workspace <span aria-hidden="true" className="ml-2">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <footer className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-7 text-xs leading-5 text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <a className="font-extrabold text-[#19392f]" href="#top">SAKI AI</a>
+        <p>KNBS Nairobi MSME Survey 2016 · World Bank Enterprise Surveys Kenya 2025</p>
+        <p>Planning support, not a guarantee of success.</p>
+      </footer>
+    </main>
+  )
+}
+
 function AuthScreen({
   email,
   password,
@@ -444,6 +674,7 @@ function AuthScreen({
   onEmailChange,
   onPasswordChange,
   onRegisterToggle,
+  onClose,
   onSubmit,
 }: {
   email: string
@@ -454,11 +685,25 @@ function AuthScreen({
   onEmailChange: (value: string) => void
   onPasswordChange: (value: string) => void
   onRegisterToggle: () => void
+  onClose: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#f5f7f3] p-4">
-      <div className="grid w-full max-w-5xl overflow-hidden rounded-[28px] bg-white shadow-xl shadow-slate-900/5 md:grid-cols-[1.05fr_0.95fr]">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-[#10231d]/70 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape') onClose()
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-heading"
+        className="relative mx-auto my-6 grid w-full max-w-5xl overflow-hidden rounded-[28px] bg-[#fbfaf5] shadow-2xl shadow-slate-950/25 md:grid-cols-[1.05fr_0.95fr]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button className="absolute right-4 top-4 z-50 rounded-full bg-white/90 px-3 py-1 text-xl leading-7 text-slate-600 shadow-sm transition hover:bg-white hover:text-slate-900" type="button" aria-label="Close dialog" onClick={onClose}>×</button>
         <section className="relative flex min-h-72 flex-col justify-between overflow-hidden bg-[#19392f] p-8 text-white sm:p-10">
           <div className="relative z-10 flex items-center gap-3"><BrandMark /><span className="text-xl font-extrabold">SAKI AI</span></div>
           <div className="relative z-10 mt-16">
@@ -470,9 +715,9 @@ function AuthScreen({
           <div className="pointer-events-none absolute -bottom-28 -right-14 h-80 w-80 rounded-full border border-white/10" />
           <div className="pointer-events-none absolute -bottom-20 -right-6 h-64 w-64 rounded-full border border-white/10" />
         </section>
-        <section className="p-7 sm:p-10">
+        <section className="p-7 pt-14 sm:p-10 sm:pt-12">
           <p className="section-eyebrow">{isRegistering ? 'Create workspace' : 'Welcome back'}</p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">{isRegistering ? 'Create your account' : 'Sign in to SAKI AI'}</h2>
+          <h2 id="auth-heading" className="mt-2 text-2xl font-bold tracking-tight text-slate-900">{isRegistering ? 'Create your account' : 'Sign in to SAKI AI'}</h2>
           <p className="mt-2 text-sm leading-6 text-slate-500">Your saved opportunities are private to your account.</p>
           {error && <div role="alert" className="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{error}</div>}
           <form className="mt-7 space-y-4" onSubmit={onSubmit}>
@@ -493,7 +738,7 @@ function AuthScreen({
           </p>
         </section>
       </div>
-    </main>
+    </div>
   )
 }
 
