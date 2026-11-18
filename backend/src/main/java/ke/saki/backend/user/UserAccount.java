@@ -45,6 +45,7 @@ public class UserAccount {
     }
 
     @PrePersist
+    @SuppressWarnings("unused")
     void setCreatedAt() {
         if (createdAt == null) {
             createdAt = Instant.now();

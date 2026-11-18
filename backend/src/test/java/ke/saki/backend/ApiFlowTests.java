@@ -73,6 +73,31 @@ class ApiFlowTests {
     }
 
     @Test
+    void onlineResearchIsOwnerScopedAndRequiresServerConfiguration() throws Exception {
+        String ownerToken = register("research-owner-" + UUID.randomUUID() + "@example.test");
+        MvcResult created = mvc.perform(post("/api/ideas")
+                        .header("Authorization", "Bearer " + ownerToken)
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(ideaPayload())))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String ideaId = objectMapper.readTree(created.getResponse().getContentAsString())
+                .get("id").asText();
+
+        String otherToken = register("research-other-" + UUID.randomUUID() + "@example.test");
+        mvc.perform(post("/api/ideas/" + ideaId + "/research")
+                        .header("Authorization", "Bearer " + otherToken))
+                .andExpect(status().isNotFound());
+
+        MvcResult researchError = mvc.perform(post("/api/ideas/" + ideaId + "/research")
+                        .header("Authorization", "Bearer " + ownerToken))
+                .andExpect(status().isServiceUnavailable())
+                .andReturn();
+        assertThat(objectMapper.readTree(researchError.getResponse().getContentAsString())
+                .get("message").asText()).contains("TAVILY_API_KEY");
+    }
+
+    @Test
     void regularUsersCannotAccessModelAdministration() throws Exception {
         String email = "user-" + UUID.randomUUID() + "@example.test";
         MvcResult registration = mvc.perform(post("/api/auth/register")

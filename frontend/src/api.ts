@@ -60,6 +60,22 @@ export interface Analysis {
   }
 }
 
+export interface BusinessResearch {
+  retrievedAt: string
+  sector: string
+  geography: string
+  businessType: string
+  query: string
+  keySignals: string[]
+  results: Array<{
+    title: string
+    url: string
+    snippet: string
+    publishedDate: string | null
+    matchedTopics: string[]
+  }>
+}
+
 export type UserRole = 'USER' | 'ADMIN'
 
 export interface ModelMetadata {
@@ -149,6 +165,9 @@ export const api = {
 
   listAnalyses: (token: string, id: string) =>
     request<Analysis[]>(`/api/ideas/${encodeURIComponent(id)}/analyses`, token),
+
+  research: (token: string, id: string) =>
+    request<BusinessResearch>(`/api/ideas/${encodeURIComponent(id)}/research`, token, { method: 'POST' }),
 
   currentModel: (token: string) =>
     request<ModelMetadata>('/api/admin/model', token),
